@@ -1,5 +1,7 @@
 import { mountChecklist } from "../ui/checklist";
+import { mountToolbar } from "../ui/prefs";
 
+mountToolbar(document.getElementById("toolbar")!);
 mountChecklist(document.getElementById("app")!);
 
 document.getElementById("open-full")!.addEventListener("click", (e) => {

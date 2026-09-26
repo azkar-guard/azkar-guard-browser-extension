@@ -1,6 +1,8 @@
 export type Session = "morning" | "evening";
 export type Level = "small" | "medium" | "full";
 export type Strictness = "gentle" | "normal" | "strict";
+export type Lang = "en" | "ar";
+export type Theme = "system" | "light" | "dark";
 
 /** One entry of src/data/azkar.json. */
 export interface Dhikr {
@@ -11,7 +13,11 @@ export interface Dhikr {
   /** Smallest level that includes this dhikr. Levels are cumulative: small ⊂ medium ⊂ full. */
   level: Level;
   source: string;
+  /** English translation of meaning. */
+  translation_en: string;
   virtue_note?: string;
+  /** Arabic virtue note: a verbatim hadith excerpt with reference, or a paraphrase marked «بمعناه». */
+  virtue_note_ar?: string;
 }
 
 export type Location =
@@ -27,6 +33,9 @@ export interface Settings {
   strictness: Strictness;
   /** Opt-in banner on all sites; also requires the optional host permission. */
   siteBanner: boolean;
+  /** Interface language. The dhikr itself is always shown in Arabic. */
+  language: Lang;
+  theme: Theme;
 }
 
 /** Prayer times for one calendar date, as epoch milliseconds. */

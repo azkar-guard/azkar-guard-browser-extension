@@ -4,6 +4,17 @@
   padding: 2rem 1rem 3rem;
 }
 
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+label.radio {
+  margin-inline-end: 1rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -42,7 +53,6 @@ label.check-row {
 
 label.radio {
   display: inline-flex;
-  margin-right: 1rem;
 }
 
 input:not([type="radio"], [type="checkbox"]),

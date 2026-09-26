@@ -1,3 +1,5 @@
+import type { Lang } from "./types";
+
 export const MINUTE = 60_000;
 export const DAY = 24 * 60 * MINUTE;
 
@@ -14,6 +16,9 @@ export function localDate(epochMs: number): string {
   return `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`;
 }
 
-export function formatTime(epochMs: number): string {
-  return new Date(epochMs).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+export function formatTime(epochMs: number, lang: Lang): string {
+  return new Date(epochMs).toLocaleTimeString(lang === "ar" ? "ar" : [], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 }

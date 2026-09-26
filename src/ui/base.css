@@ -1,5 +1,7 @@
+/* Light tokens by default; dark via the OS preference unless the user forced
+   light, or always when the user picked dark ([data-theme] set from settings). */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   --bg: #f7f6f2;
   --surface: #ffffff;
   --text: #1c1f1d;
@@ -7,6 +9,7 @@
   --border: #dcdfd9;
   --accent: #1f6f4a;
   --accent-soft: #e3efe8;
+  --on-accent: #ffffff;
   --warn: #b45309;
   --radius: 12px;
   --arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
@@ -14,7 +17,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #121513;
     --surface: #1b1f1c;
     --text: #e8ebe8;
@@ -22,7 +26,62 @@
     --border: #2d332f;
     --accent: #5cc08f;
     --accent-soft: #1f3128;
+    --on-accent: #121513;
+    --warn: #f59e0b;
   }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #121513;
+  --surface: #1b1f1c;
+  --text: #e8ebe8;
+  --muted: #9aa69f;
+  --border: #2d332f;
+  --accent: #5cc08f;
+  --accent-soft: #1f3128;
+  --on-accent: #121513;
+  --warn: #f59e0b;
+}
+
+/* Language + theme toggles */
+.toolbar {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.toggle {
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  border-color: var(--accent);
+}
+
+.toggle.icon {
+  font-size: 1rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.translation {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 * {
@@ -75,7 +134,7 @@ a {
 
 .btn.primary {
   background: var(--accent);
-  color: var(--surface);
+  color: var(--on-accent);
 }
 
 .btn.secondary {
@@ -233,6 +292,12 @@ cite {
   margin: 0;
   font-size: 0.8rem;
   color: var(--muted);
+}
+
+.virtue:lang(ar) {
+  font-family: var(--arabic);
+  font-size: 1rem;
+  line-height: 1.8;
 }
 
 .count {

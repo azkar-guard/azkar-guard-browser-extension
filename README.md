@@ -23,12 +23,18 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
 - **Notifications:** one when a window opens, then every 30 minutes while the session is incomplete. They stop once the session is complete and start again at the next window.
 - **Site banner (opt-in):** a small banner on websites while a session is pending. It needs host access, which is requested only when you enable it and removed when you disable it. After you dismiss it, it comes back after 60, 30 or 10 minutes, depending on the strictness setting.
 - **Streak:** a day counts only when both morning and evening are complete. Today being still in progress doesn't break the streak.
+- **Language:** English or Arabic interface. Arabic switches the whole UI to right-to-left. The dhikr is always shown in Arabic.
+  - **English mode** adds an English translation of the meaning under each dhikr.
+  - **Arabic mode** shows the virtue notes as Arabic hadith text.
+
+  The default follows the browser's UI language. Switch with the toggle on the new tab page, the popup or the settings page.
+- **Theme:** system, light or dark. The toggle cycles through them; the settings page has a select.
 
 All state lives in `chrome.storage.local`. There is no account, backend or sync in this phase.
 
 ## Local setup
 
-Requirements: Node 20+ and Chrome 120+.
+Requirements: Node 22.12+ (24 LTS recommended) and Chrome 120+.
 
 ```bash
 npm install
@@ -62,7 +68,10 @@ After code changes, run `npm run build` again and click the reload icon on the e
 - **Evening variants.** These are built by applying exactly the substitutions the source prescribes in its `وإذا أمسى قال` notes. When the source gives the full evening wording (#78, #89), that wording is used as-is, unvocalized, just as the source prints it.
 - **One count correction.** Source #83 (`حسبي الله…`) has `REPEAT: 1`, but its own text says seven times. `required_count` is 7.
 
-Each entry follows the shared data model plus two fields:
+- **English translations.** These are translations of meaning, adapted from the Hisn al-Muslim English edition (`hisnmuslim.com/api/en/27.json`). Inline notes are removed and obvious errors are fixed. For example, #86 says "All-Seeing" for السميع, which means All-Hearing.
+- **Arabic virtue notes.** These are verbatim hadith excerpts with references. At build time, each excerpt is checked against the full hadith text in [fawazahmed0/hadith-api](https://github.com/fawazahmed0/hadith-api), and the build fails if one doesn't match. The exception is #75 (al-Hakim) and #98 (at-Tabarani): those collections aren't in the dataset, so their notes are paraphrases marked «بمعناه».
+
+Each entry follows the shared data model plus these fields:
 
 ```jsonc
 {
@@ -70,11 +79,15 @@ Each entry follows the shared data model plus two fields:
   "session": "both",              // morning | evening | both
   "arabic_text": "…",
   "required_count": 1,
-  "virtue_note": "…",             // optional
+  "virtue_note": "…",             // optional, English
+  "virtue_note_ar": "…",          // present whenever virtue_note is
+  "translation_en": "…",          // English translation of meaning
   "level": "small",               // smallest level that includes it: small ⊂ medium ⊂ full
   "source": "Hisn al-Muslim, hisnmuslim.com #75"
 }
 ```
+
+Qur'an verses in the motivational reminders come from [api.alquran.cloud](https://alquran.cloud/api) (`quran-simple`). The hadith reminder is al-Bukhari 6407, taken from the same hadith dataset.
 
 ## Permissions
 

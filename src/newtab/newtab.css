@@ -12,6 +12,12 @@ nav {
   font-size: 0.9rem;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .brand {
   font-weight: 600;
   color: var(--muted);

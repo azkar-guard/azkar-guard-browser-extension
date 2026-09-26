@@ -17,7 +17,14 @@ export const DEFAULT_SETTINGS: Settings = {
   notifications: true,
   strictness: "normal",
   siteBanner: false,
+  language: "en",
+  theme: "system",
 };
+
+/** Browser UI language decides the default interface language until the user picks one. */
+function defaultLanguage(): Settings["language"] {
+  return chrome.i18n.getUILanguage().toLowerCase().startsWith("ar") ? "ar" : "en";
+}
 
 export async function get<K extends StoreKey>(key: K): Promise<Store[K] | undefined> {
   const result = await chrome.storage.local.get(key);
@@ -29,7 +36,7 @@ export async function set<K extends StoreKey>(key: K, value: Store[K]): Promise<
 }
 
 export async function getSettings(): Promise<Settings> {
-  return { ...DEFAULT_SETTINGS, ...(await get("settings")) };
+  return { ...DEFAULT_SETTINGS, language: defaultLanguage(), ...(await get("settings")) };
 }
 
 export async function updateSettings(patch: Partial<Settings>): Promise<Settings> {

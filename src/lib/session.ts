@@ -1,5 +1,6 @@
 import { azkarFor } from "./azkar";
 import { localDate } from "./dates";
+import { t } from "./i18n";
 import { ensurePrayerDays } from "./prayer";
 import { get, getSettings, set } from "./storage";
 import { currentStreak } from "./streak";
@@ -41,7 +42,7 @@ export async function getStatus(now = Date.now()): Promise<Status> {
   }
   if (!window) {
     const streak = currentStreak(history, localDate(now));
-    return { state: "error", settings, streak, error: "No prayer times cover the current time" };
+    return { state: "error", settings, streak, error: t(settings.language, "error.noWindow") };
   }
 
   const items = azkarFor(window.session, settings.level);

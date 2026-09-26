@@ -1,5 +1,5 @@
-import { SESSION_LABELS } from "../lib/azkar";
 import { MINUTE } from "../lib/dates";
+import { t } from "../lib/i18n";
 import type { BannerMessage, BannerStatus } from "../lib/messages";
 import { randomReminder } from "../lib/reminders";
 import { getStatus, type ActiveStatus, type Status } from "../lib/session";
@@ -73,33 +73,37 @@ async function nag(): Promise<void> {
 }
 
 async function notify(status: ActiveStatus): Promise<void> {
+  const lang = status.settings.language;
   if (!status.settings.notifications) return;
-  const reminder = randomReminder();
+  const reminder = randomReminder(lang);
+  const session = t(lang, `session.${status.window.session}`);
+  const progress = t(lang, "notify.body", { done: status.doneCount, total: status.total });
   await chrome.notifications.create(NOTIFICATION_ID, {
     type: "basic",
     iconUrl: chrome.runtime.getURL("icons/icon-128.png"),
-    title: `${SESSION_LABELS[status.window.session].en} not finished yet`,
-    message: `${status.doneCount} of ${status.total} done. "${reminder.text}" (${reminder.ref})`,
+    title: t(lang, "notify.title", { session }),
+    message: `${progress} «${reminder.text}» (${reminder.ref})`,
     priority: 1,
   });
 }
 
 async function updateBadge(status: Status): Promise<void> {
+  const lang = status.settings.language;
   let text = "";
   let title = "Azkar Guard";
   if (status.state === "unconfigured") {
     text = "!";
-    title = "Azkar Guard: set your location to start";
+    title = t(lang, "badge.unconfigured");
   } else if (status.state === "error") {
     text = "?";
     title = `Azkar Guard: ${status.error}`;
   } else {
-    const label = SESSION_LABELS[status.window.session].en;
+    const session = t(lang, `session.${status.window.session}`);
     if (status.complete) {
-      title = `${label} complete`;
+      title = t(lang, "complete.title", { session });
     } else {
       text = String(status.total - status.doneCount);
-      title = `${label}: ${status.doneCount}/${status.total} done`;
+      title = t(lang, "badge.progress", { session, done: status.doneCount, total: status.total });
     }
   }
   await chrome.action.setBadgeBackgroundColor({ color: "#b45309" });
@@ -130,12 +134,19 @@ async function bannerStatus(): Promise<BannerStatus> {
   }
   const dismissedAt = (await get("bannerDismissedAt")) ?? 0;
   if (Date.now() - dismissedAt < BANNER_SNOOZE[status.settings.strictness]) return { show: false };
+  const lang = status.settings.language;
+  const reminder = randomReminder(lang);
   return {
     show: true,
-    session: status.window.session,
-    doneCount: status.doneCount,
-    total: status.total,
-    reminder: randomReminder(),
+    lang,
+    title: t(lang, "banner.title", {
+      session: t(lang, `session.${status.window.session}`),
+      done: status.doneCount,
+      total: status.total,
+    }),
+    quote: `«${reminder.text}» (${reminder.ref})`,
+    open: t(lang, "action.openChecklist"),
+    later: t(lang, "action.later"),
   };
 }
 

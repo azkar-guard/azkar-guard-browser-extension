@@ -9,65 +9,89 @@
   </head>
   <body>
     <main class="page">
-      <h1>Azkar Guard settings</h1>
+      <header class="page-header">
+        <h1 data-i18n="options.title">Azkar Guard settings</h1>
+        <div class="toolbar" id="toolbar"></div>
+      </header>
 
       <form id="form" novalidate>
         <fieldset>
-          <legend>Location (for prayer times)</legend>
+          <legend data-i18n="options.location">Location (for prayer times)</legend>
           <div>
-            <label class="radio"><input type="radio" name="kind" value="city" checked /> City</label>
-            <label class="radio"><input type="radio" name="kind" value="coords" /> Coordinates</label>
+            <label class="radio"><input type="radio" name="kind" value="city" checked /> <span data-i18n="options.city">City</span></label>
+            <label class="radio"><input type="radio" name="kind" value="coords" /> <span data-i18n="options.coords">Coordinates</span></label>
           </div>
 
           <div id="city-fields" class="row">
-            <label>City <input name="city" autocomplete="address-level2" placeholder="Cairo" /></label>
-            <label>Country <input name="country" autocomplete="country-name" placeholder="Egypt" /></label>
+            <label><span data-i18n="options.city">City</span> <input name="city" autocomplete="address-level2" placeholder="Cairo" /></label>
+            <label><span data-i18n="options.country">Country</span> <input name="country" autocomplete="country-name" placeholder="Egypt" /></label>
           </div>
 
           <div id="coords-fields" class="row" hidden>
-            <label>Latitude <input name="latitude" inputmode="decimal" placeholder="30.0444" /></label>
-            <label>Longitude <input name="longitude" inputmode="decimal" placeholder="31.2357" /></label>
-            <button type="button" class="btn secondary" id="locate">Use my current location</button>
+            <label><span data-i18n="options.latitude">Latitude</span> <input name="latitude" inputmode="decimal" dir="ltr" placeholder="30.0444" /></label>
+            <label><span data-i18n="options.longitude">Longitude</span> <input name="longitude" inputmode="decimal" dir="ltr" placeholder="31.2357" /></label>
+            <button type="button" class="btn secondary" id="locate" data-i18n="options.locate">Use my current location</button>
           </div>
 
           <label>
-            Calculation method
+            <span data-i18n="options.method">Calculation method</span>
             <select name="method" id="method"></select>
           </label>
         </fieldset>
 
         <fieldset>
-          <legend>Azkar</legend>
+          <legend data-i18n="options.azkar">Azkar</legend>
           <label>
-            Default level
+            <span data-i18n="options.level">Default level</span>
             <select name="level" id="level"></select>
           </label>
-          <p class="muted">You can also switch level from the checklist, depending on your time and energy that day.</p>
+          <p class="muted" data-i18n="options.levelHint">You can also switch level from the checklist.</p>
         </fieldset>
 
         <fieldset>
-          <legend>Reminders</legend>
+          <legend data-i18n="options.appearance">Appearance</legend>
+          <div class="row">
+            <label>
+              <span data-i18n="options.language">Language</span>
+              <select name="language">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="options.theme">Theme</span>
+              <select name="theme">
+                <option value="system" data-i18n="options.themeSystem">System</option>
+                <option value="light" data-i18n="options.themeLight">Light</option>
+                <option value="dark" data-i18n="options.themeDark">Dark</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend data-i18n="options.reminders">Reminders</legend>
           <label class="check-row">
             <input type="checkbox" name="notifications" />
-            Notify me every 30 minutes while a session is incomplete
+            <span data-i18n="options.notifications">Notify me every 30 minutes while a session is incomplete</span>
           </label>
           <label class="check-row">
             <input type="checkbox" name="siteBanner" id="siteBanner" />
-            Show a reminder banner on websites I visit
+            <span data-i18n="options.banner">Show a reminder banner on websites I visit</span>
           </label>
-          <p class="muted">The banner needs access to all sites. Chrome will ask you to allow it. It only reads whether a session is pending and never reads page content.</p>
+          <p class="muted" data-i18n="options.bannerHint">The banner needs access to all sites.</p>
           <label>
-            Banner strictness
+            <span data-i18n="options.strictness">Banner strictness</span>
             <select name="strictness">
-              <option value="gentle">Gentle: reappears 60 min after dismissing</option>
-              <option value="normal">Normal: reappears 30 min after dismissing</option>
-              <option value="strict">Strict: reappears 10 min after dismissing</option>
+              <option value="gentle" data-i18n="options.gentle">Gentle</option>
+              <option value="normal" data-i18n="options.normal">Normal</option>
+              <option value="strict" data-i18n="options.strict">Strict</option>
             </select>
           </label>
         </fieldset>
 
         <div class="actions">
-          <button type="submit" class="btn primary">Save</button>
+          <button type="submit" class="btn primary" data-i18n="options.save">Save</button>
           <span id="status" role="status" class="muted"></span>
         </div>
       </form>

@@ -13,6 +13,13 @@ describe("azkar data", () => {
     }
   });
 
+  it("has an English translation for every dhikr and virtue notes in both languages", () => {
+    for (const d of ALL_AZKAR) {
+      expect(d.translation_en.length, d.id).toBeGreaterThan(0);
+      expect(Boolean(d.virtue_note), d.id).toBe(Boolean(d.virtue_note_ar));
+    }
+  });
+
   it("makes levels cumulative for both sessions", () => {
     for (const session of ["morning", "evening"] as const) {
       const [small, medium, full] = LEVELS.map((l) => azkarFor(session, l).map((d) => d.id));

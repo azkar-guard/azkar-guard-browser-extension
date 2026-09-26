@@ -5,17 +5,6 @@ export const ALL_AZKAR = data as Dhikr[];
 
 export const LEVELS: Level[] = ["small", "medium", "full"];
 
-export const LEVEL_LABELS: Record<Level, string> = {
-  small: "Small",
-  medium: "Medium",
-  full: "Full",
-};
-
-export const SESSION_LABELS: Record<Session, { en: string; ar: string }> = {
-  morning: { en: "Morning Azkar", ar: "أذكار الصباح" },
-  evening: { en: "Evening Azkar", ar: "أذكار المساء" },
-};
-
 /** Azkar for a session at a level, in source order. Levels are cumulative. */
 export function azkarFor(session: Session, level: Level): Dhikr[] {
   const max = LEVELS.indexOf(level);

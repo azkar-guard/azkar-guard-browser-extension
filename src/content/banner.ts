@@ -4,7 +4,6 @@ import type { BannerMessage, BannerStatus } from "../lib/messages";
 
 const RECHECK_MS = 5 * 60_000;
 const HOST_ID = "azkar-guard-banner";
-const SESSION_NAMES = { morning: "Morning", evening: "Evening" } as const;
 
 const STYLE = `
   :host { all: initial; }
@@ -46,18 +45,20 @@ function show(status: Extract<BannerStatus, { show: true }>): void {
   const banner = document.createElement("div");
   banner.className = "banner";
   banner.setAttribute("role", "status");
+  banner.lang = status.lang;
+  banner.dir = status.lang === "ar" ? "rtl" : "ltr";
 
   const title = document.createElement("p");
   title.className = "title";
-  title.textContent = `${SESSION_NAMES[status.session]} Azkar: ${status.doneCount} of ${status.total} done`;
+  title.textContent = status.title;
 
   const quote = document.createElement("p");
   quote.className = "quote";
-  quote.textContent = `"${status.reminder.text}" (${status.reminder.ref})`;
+  quote.textContent = status.quote;
 
   const open = document.createElement("button");
   open.className = "open";
-  open.textContent = "Open checklist";
+  open.textContent = status.open;
   open.addEventListener("click", () => {
     remove();
     void send({ type: "open-checklist" });
@@ -65,7 +66,7 @@ function show(status: Extract<BannerStatus, { show: true }>): void {
 
   const later = document.createElement("button");
   later.className = "later";
-  later.textContent = "Later";
+  later.textContent = status.later;
   later.addEventListener("click", () => {
     remove();
     void send({ type: "banner:dismiss" });

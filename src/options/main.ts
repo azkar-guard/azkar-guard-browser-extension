@@ -1,8 +1,10 @@
-import { estimateMinutes, LEVEL_LABELS, LEVELS } from "../lib/azkar";
+import { estimateMinutes, LEVELS } from "../lib/azkar";
 import { formatTime } from "../lib/dates";
+import { t, type I18nKey } from "../lib/i18n";
 import { getStatus } from "../lib/session";
-import { getSettings, set } from "../lib/storage";
-import type { Level, Location, Settings, Strictness } from "../lib/types";
+import { getSettings, set, updateSettings } from "../lib/storage";
+import type { Lang, Level, Location, Settings, Strictness, Theme } from "../lib/types";
+import { mountToolbar, watchPrefs } from "../ui/prefs";
 
 const SITE_ORIGINS = ["http://*/*", "https://*/*"];
 
@@ -35,8 +37,10 @@ const statusEl = document.getElementById("status")!;
 const field = <T extends HTMLElement = HTMLInputElement>(name: string) =>
   form.elements.namedItem(name) as unknown as T;
 
-function setStatus(message: string, isError = false): void {
-  statusEl.textContent = message;
+let lang: Lang = "en";
+
+function setStatus(key: I18nKey, vars: Record<string, string | number> = {}, isError = false): void {
+  statusEl.textContent = t(lang, key, vars);
   statusEl.classList.toggle("error", isError);
 }
 
@@ -46,15 +50,23 @@ function toggleLocationFields(): void {
   document.getElementById("coords-fields")!.hidden = kind !== "coords";
 }
 
-function populateSelects(): void {
-  const method = field<HTMLSelectElement>("method");
-  for (const [id, name] of METHODS) method.add(new Option(name, String(id)));
-
-  const level = field<HTMLSelectElement>("level");
-  for (const l of LEVELS) {
-    const minutes = `~${estimateMinutes("morning", l)} min morning, ~${estimateMinutes("evening", l)} min evening`;
-    level.add(new Option(`${LEVEL_LABELS[l]} (${minutes})`, l));
-  }
+function renderLevelOptions(): void {
+  const select = field<HTMLSelectElement>("level");
+  const selected = select.value;
+  select.replaceChildren(
+    ...LEVELS.map(
+      (l) =>
+        new Option(
+          t(lang, "options.levelOption", {
+            level: t(lang, `level.${l}`),
+            morning: estimateMinutes("morning", l),
+            evening: estimateMinutes("evening", l),
+          }),
+          l,
+        ),
+    ),
+  );
+  if (selected) select.value = selected;
 }
 
 function fill(settings: Settings): void {
@@ -81,45 +93,51 @@ function readLocation(): Location {
     const latitude = Number(field("latitude").value);
     const longitude = Number(field("longitude").value);
     if (!field("latitude").value || Number.isNaN(latitude) || Math.abs(latitude) > 90) {
-      throw new Error("Latitude must be a number between -90 and 90.");
+      throw new Error("options.errLatitude");
     }
     if (!field("longitude").value || Number.isNaN(longitude) || Math.abs(longitude) > 180) {
-      throw new Error("Longitude must be a number between -180 and 180.");
+      throw new Error("options.errLongitude");
     }
     return { kind: "coords", latitude, longitude };
   }
   const city = field("city").value.trim();
   const country = field("country").value.trim();
-  if (!city || !country) throw new Error("Enter both a city and a country.");
+  if (!city || !country) throw new Error("options.errCity");
   return { kind: "city", city, country };
 }
 
 async function save(event: SubmitEvent): Promise<void> {
   event.preventDefault();
-  let settings: Settings;
+  let location: Location;
   try {
-    settings = {
-      location: readLocation(),
-      method: Number(field<HTMLSelectElement>("method").value),
-      level: field<HTMLSelectElement>("level").value as Level,
-      notifications: field("notifications").checked,
-      siteBanner: field("siteBanner").checked,
-      strictness: field<HTMLSelectElement>("strictness").value as Strictness,
-    };
+    location = readLocation();
   } catch (err) {
-    setStatus(err instanceof Error ? err.message : String(err), true);
+    setStatus((err as Error).message as I18nKey, {}, true);
     return;
   }
 
-  await set("settings", settings);
-  setStatus("Saved. Checking prayer times…");
+  // Language and theme apply immediately on change, so keep whatever is stored.
+  await set("settings", {
+    ...(await getSettings()),
+    location,
+    method: Number(field<HTMLSelectElement>("method").value),
+    level: field<HTMLSelectElement>("level").value as Level,
+    notifications: field("notifications").checked,
+    siteBanner: field("siteBanner").checked,
+    strictness: field<HTMLSelectElement>("strictness").value as Strictness,
+  });
+  setStatus("options.savedChecking");
 
   const status = await getStatus();
   if (status.state === "active") {
     const { session, start, end } = status.window;
-    setStatus(`Saved. Current window: ${session}, ${formatTime(start)} to ${formatTime(end)}.`);
+    setStatus("options.saved", {
+      session: t(lang, `session.${session}`),
+      start: formatTime(start, lang),
+      end: formatTime(end, lang),
+    });
   } else if (status.state === "error") {
-    setStatus(`Saved, but prayer times failed: ${status.error}`, true);
+    setStatus("options.savedFailed", { error: status.error }, true);
   }
 }
 
@@ -135,32 +153,51 @@ async function onBannerToggle(event: Event): Promise<void> {
   const granted = await chrome.permissions.request({ origins: SITE_ORIGINS });
   if (!granted) {
     box.checked = false;
-    setStatus("Site access was not granted, so the banner stays off.", true);
+    setStatus("options.bannerDenied", {}, true);
   }
 }
 
 function locate(): void {
   if (!navigator.geolocation) {
-    setStatus("Geolocation is not available in this browser.", true);
+    setStatus("options.geoUnavailable", {}, true);
     return;
   }
-  setStatus("Getting your location…");
+  setStatus("options.geoLocating");
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       field("latitude").value = pos.coords.latitude.toFixed(4);
       field("longitude").value = pos.coords.longitude.toFixed(4);
-      setStatus("Location found. Press Save to apply.");
+      setStatus("options.geoFound");
     },
-    (err) => setStatus(`Could not get location: ${err.message}`, true),
+    (err) => setStatus("options.geoFailed", { error: err.message }, true),
     { timeout: 15_000 },
   );
 }
 
-populateSelects();
-fill(await getSettings());
+const method = field<HTMLSelectElement>("method");
+for (const [id, name] of METHODS) method.add(new Option(name, String(id)));
+
+mountToolbar(document.getElementById("toolbar")!);
+
+// Re-localize on every settings change, but only fill the form once so unsaved
+// edits are not overwritten when language or theme is toggled.
+let filled = false;
+await watchPrefs((settings) => {
+  lang = settings.language;
+  renderLevelOptions();
+  field<HTMLSelectElement>("language").value = settings.language;
+  field<HTMLSelectElement>("theme").value = settings.theme;
+  if (!filled) {
+    fill(settings);
+    filled = true;
+  }
+});
 
 form.addEventListener("change", (e) => {
-  if ((e.target as HTMLInputElement).name === "kind") toggleLocationFields();
+  const target = e.target as HTMLInputElement;
+  if (target.name === "kind") toggleLocationFields();
+  if (target.name === "language") void updateSettings({ language: target.value as Lang });
+  if (target.name === "theme") void updateSettings({ theme: target.value as Theme });
 });
 form.addEventListener("submit", (e) => void save(e));
 field("siteBanner").addEventListener("change", (e) => void onBannerToggle(e));
