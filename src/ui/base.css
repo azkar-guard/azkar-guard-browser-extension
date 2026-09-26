@@ -94,9 +94,14 @@
   box-sizing: border-box;
 }
 
+/* html carries the background too, so a hidden body never flashes white. */
+html,
+body {
+  background: var(--bg);
+}
+
 body {
   margin: 0;
-  background: var(--bg);
   color: var(--text);
   font: 15px/1.5 var(--ui);
 }

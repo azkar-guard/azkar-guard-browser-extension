@@ -1,3 +1,4 @@
+import { checklistUrl } from "../lib/pages";
 import { mountChecklist } from "../ui/checklist";
 import { mountToolbar } from "../ui/prefs";
 
@@ -6,7 +7,7 @@ mountChecklist(document.getElementById("app")!);
 
 document.getElementById("open-full")!.addEventListener("click", (e) => {
   e.preventDefault();
-  void chrome.tabs.create({ url: chrome.runtime.getURL("src/newtab/index.html") });
+  void chrome.tabs.create({ url: checklistUrl() });
   window.close();
 });
 

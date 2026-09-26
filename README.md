@@ -18,7 +18,7 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
   | Medium | 16 azkar, ~8 min | 17 azkar, ~9 min |
   | Full | 25 azkar, ~16 min | 22 azkar, ~11 min |
 
-- **New tab page:** shows the checklist while a session is pending, and a calm "complete" screen once it's done.
+- **New tab page:** shows the checklist while a session is pending. Once the current session is complete, new tabs hand over straight to Chrome's normal new tab page (`chrome://new-tab-page/`) until the next window opens. Opening the checklist from the popup or a notification always shows it (`?checklist`), including the "complete" screen.
 - **Toolbar popup:** the same checklist. The badge shows how many azkar are left in the current window.
 - **Notifications:** one when a window opens, then every 30 minutes while the session is incomplete. They stop once the session is complete and start again at the next window.
 - **Site banner (opt-in):** a small banner on websites while a session is pending. It needs host access, which is requested only when you enable it and removed when you disable it. After you dismiss it, it comes back after 60, 30 or 10 minutes, depending on the strictness setting.
@@ -135,4 +135,4 @@ scripts/                  azkar data + icon generators
 **Not in this phase:**
 - Firefox and Edge. Browser calls go through `chrome.*`, which Firefox also supports for MV3. The follow-up is mostly the manifest: Firefox uses `background.scripts` instead of `service_worker` and needs `browser_specific_settings`.
 - Accounts and sync (Phase 3).
-- Turning off the new tab override. Chrome only lets you disable it by disabling the extension.
+- Removing the new tab override. The manifest can't make it conditional, so when a session is complete the page redirects to Chrome's new tab instead. You may see a brief blank frame, and the address bar isn't focused the way it is on Chrome's own new tab.

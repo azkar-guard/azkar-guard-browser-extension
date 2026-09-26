@@ -1,5 +1,6 @@
 import { MINUTE } from "../lib/dates";
 import { t } from "../lib/i18n";
+import { checklistUrl } from "../lib/pages";
 import type { BannerMessage, BannerStatus } from "../lib/messages";
 import { randomReminder } from "../lib/reminders";
 import { getStatus, type ActiveStatus, type Status } from "../lib/session";
@@ -151,7 +152,7 @@ async function bannerStatus(): Promise<BannerStatus> {
 }
 
 async function openChecklist(): Promise<void> {
-  await chrome.tabs.create({ url: chrome.runtime.getURL("src/newtab/index.html") });
+  await chrome.tabs.create({ url: checklistUrl() });
 }
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
