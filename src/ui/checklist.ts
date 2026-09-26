@@ -10,11 +10,24 @@ import { h } from "./dom";
 /** Minimum gap between counted taps, to prevent rapid-fire tapping. */
 const TAP_COOLDOWN_MS = 400;
 
+/** Number of light dots in the completion animation. */
+const SPARKS = 12;
+
+// Static markup (no user data), so innerHTML is safe here.
+const SEAL_SVG = `<svg viewBox="0 0 52 52" aria-hidden="true">
+  <circle class="seal-ring" cx="26" cy="26" r="24" />
+  <path class="seal-check" d="M15 27 l7 7 l15 -15" />
+</svg>`;
+
 export function mountChecklist(root: HTMLElement): void {
   let lastTap = 0;
   let busy = false;
   // Whether the collapsed "completed" group is expanded; kept across re-renders.
   let doneOpen = false;
+  // Set by the tap that completes the session, so the celebration plays only then.
+  let celebrate = false;
+  // Storage-change re-renders are held off until the celebration has finished playing.
+  let quietUntil = 0;
 
   const render = async (status?: Status) => {
     const current = status ?? (await getStatus());
@@ -47,7 +60,11 @@ export function mountChecklist(root: HTMLElement): void {
     lastTap = now;
     busy = true;
     try {
-      await render(await tap(id));
+      const status = await tap(id);
+      celebrate = status.state === "active" && status.complete;
+      if (celebrate) quietUntil = Date.now() + 3000;
+      await render(status);
+      celebrate = false;
       if (left === 1) focusNext(); // this tap completed the dhikr
     } finally {
       busy = false;
@@ -194,9 +211,21 @@ export function mountChecklist(root: HTMLElement): void {
     const lang = status.settings.language;
     const next: Session = status.window.session === "morning" ? "evening" : "morning";
     const reminder = randomReminder(lang);
+
+    const seal = h("div", { class: "seal" });
+    seal.innerHTML = SEAL_SVG;
+    if (celebrate) {
+      for (let i = 0; i < SPARKS; i++) {
+        seal.append(h("span", { class: "spark", style: `--a:${(360 / SPARKS) * i}deg;--d:${(i % 3) * 60}ms` }));
+      }
+      // The panel sits at the top; bring it into view in case the list was scrolled.
+      requestAnimationFrame(() => root.scrollIntoView({ block: "start" }));
+    }
+
     return h(
       "section",
-      { class: "panel complete" },
+      { class: `panel complete${celebrate ? " celebrate" : ""}`, role: "status" },
+      seal,
       h("p", { class: "arabic big", lang: "ar", dir: "rtl" }, t(lang, "complete.praise")),
       h("h2", {}, t(lang, "complete.title", { session: t(lang, `session.${status.window.session}`) })),
       h(
@@ -212,7 +241,7 @@ export function mountChecklist(root: HTMLElement): void {
   };
 
   onChange(["settings", "progress", "history"], () => {
-    if (!busy) void render();
+    if (!busy && Date.now() > quietUntil) void render();
   });
   void render();
 }
