@@ -320,6 +320,37 @@ cite {
   color: var(--accent);
 }
 
+/* Scrolling the next card to the top leaves a little breathing room. */
+.dhikr-button {
+  scroll-margin-top: 1rem;
+}
+
+.dhikr-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.done-group {
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.done-group summary {
+  cursor: pointer;
+  padding: 0.6rem 1rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.done-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.4rem;
+}
+
 .dhikr.done {
   display: flex;
   align-items: center;

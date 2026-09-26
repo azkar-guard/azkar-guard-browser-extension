@@ -13,6 +13,8 @@ const TAP_COOLDOWN_MS = 400;
 export function mountChecklist(root: HTMLElement): void {
   let lastTap = 0;
   let busy = false;
+  // Whether the collapsed "completed" group is expanded; kept across re-renders.
+  let doneOpen = false;
 
   const render = async (status?: Status) => {
     const current = status ?? (await getStatus());
@@ -25,7 +27,16 @@ export function mountChecklist(root: HTMLElement): void {
     if (focusedId) root.querySelector<HTMLElement>(`[data-id="${CSS.escape(focusedId)}"]`)?.focus();
   };
 
-  const onTap = async (id: string, button: HTMLElement) => {
+  /** Bring the next unfinished dhikr to the top of the view after one is completed. */
+  const focusNext = () => {
+    const next = root.querySelector<HTMLElement>(".list .dhikr-button");
+    if (!next) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    next.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    next.focus({ preventScroll: true });
+  };
+
+  const onTap = async (id: string, button: HTMLElement, left: number) => {
     const now = Date.now();
     if (busy || now - lastTap < TAP_COOLDOWN_MS) {
       button.classList.remove("rejected");
@@ -37,6 +48,7 @@ export function mountChecklist(root: HTMLElement): void {
     busy = true;
     try {
       await render(await tap(id));
+      if (left === 1) focusNext(); // this tap completed the dhikr
     } finally {
       busy = false;
     }
@@ -124,15 +136,29 @@ export function mountChecklist(root: HTMLElement): void {
     return h("div", { class: "levels", role: "group", "aria-label": t(lang, "level.group") }, ...LEVELS.map(pick));
   };
 
+  const doneRow = (d: Dhikr): HTMLElement =>
+    h(
+      "li",
+      { class: "dhikr done" },
+      h("span", { class: "check", "aria-hidden": "true" }, "✓"),
+      h("span", { class: "arabic snippet", lang: "ar", dir: "rtl" }, d.arabic_text),
+    );
+
+  /** Completed azkar, folded into one collapsible group above the remaining ones. */
+  const doneGroup = (done: Dhikr[], lang: Lang): HTMLElement => {
+    const group = h(
+      "details",
+      { class: "done-group", open: doneOpen },
+      h("summary", {}, t(lang, "done.summary", { n: done.length })),
+      h("ol", { class: "done-list" }, ...done.map(doneRow)),
+    );
+    group.addEventListener("toggle", () => {
+      doneOpen = group.open;
+    });
+    return group;
+  };
+
   const dhikrCard = (d: Dhikr, left: number, lang: Lang): HTMLElement => {
-    if (left === 0) {
-      return h(
-        "li",
-        { class: "dhikr done" },
-        h("span", { class: "check", "aria-hidden": "true" }, "✓"),
-        h("span", { class: "arabic snippet", lang: "ar", dir: "rtl" }, d.arabic_text),
-      );
-    }
     const virtue =
       lang === "ar"
         ? d.virtue_note_ar && h("p", { class: "virtue", lang: "ar", dir: "rtl" }, d.virtue_note_ar)
@@ -145,22 +171,24 @@ export function mountChecklist(root: HTMLElement): void {
       lang === "en" && h("p", { class: "translation", lang: "en", dir: "ltr" }, d.translation_en),
       h("div", { class: "card-footer" }, virtue || h("span"), h("span", { class: "count", "aria-hidden": "true" }, String(left))),
     );
-    card.addEventListener("click", () => void onTap(d.id, card));
+    card.addEventListener("click", () => void onTap(d.id, card, left));
     return h("li", { class: "dhikr" }, card);
   };
 
-  const activeView = (status: ActiveStatus): HTMLElement =>
-    h(
+  const activeView = (status: ActiveStatus): HTMLElement => {
+    const lang = status.settings.language;
+    const left = (d: Dhikr) => status.remaining[d.id] ?? 0;
+    const done = status.items.filter((d) => left(d) === 0);
+    const pending = status.items.filter((d) => left(d) > 0);
+    return h(
       "div",
       {},
       header(status),
       levelPicker(status),
-      h(
-        "ol",
-        { class: "list" },
-        ...status.items.map((d) => dhikrCard(d, status.remaining[d.id] ?? 0, status.settings.language)),
-      ),
+      done.length > 0 && doneGroup(done, lang),
+      h("ol", { class: "list" }, ...pending.map((d) => dhikrCard(d, left(d), lang))),
     );
+  };
 
   const completeView = (status: ActiveStatus): HTMLElement => {
     const lang = status.settings.language;
