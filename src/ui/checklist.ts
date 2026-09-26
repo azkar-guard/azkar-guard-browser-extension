@@ -141,6 +141,7 @@ export function mountChecklist(root: HTMLElement): void {
       "button",
       { type: "button", class: "dhikr-button", "data-id": d.id, "aria-label": t(lang, "tap.label", { n: left }) },
       h("p", { class: "arabic", lang: "ar", dir: "rtl" }, d.arabic_text),
+      lang === "en" && h("p", { class: "transliteration", lang: "ar-Latn", dir: "ltr" }, d.transliteration),
       lang === "en" && h("p", { class: "translation", lang: "en", dir: "ltr" }, d.translation_en),
       h("div", { class: "card-footer" }, virtue || h("span"), h("span", { class: "count", "aria-hidden": "true" }, String(left))),
     );

@@ -77,6 +77,12 @@
   flex-wrap: wrap;
 }
 
+.transliteration {
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  line-height: 1.55;
+}
+
 .translation {
   margin: 0.5rem 0 0;
   color: var(--muted);

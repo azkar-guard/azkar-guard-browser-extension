@@ -15,6 +15,8 @@ export interface Dhikr {
   source: string;
   /** English translation of meaning. */
   translation_en: string;
+  /** Latin transliteration for readers who cannot read Arabic script. */
+  transliteration: string;
   virtue_note?: string;
   /** Arabic virtue note: a verbatim hadith excerpt with reference, or a paraphrase marked «بمعناه». */
   virtue_note_ar?: string;

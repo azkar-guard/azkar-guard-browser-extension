@@ -16,6 +16,7 @@ describe("azkar data", () => {
   it("has an English translation for every dhikr and virtue notes in both languages", () => {
     for (const d of ALL_AZKAR) {
       expect(d.translation_en.length, d.id).toBeGreaterThan(0);
+      expect(d.transliteration.length, d.id).toBeGreaterThan(0);
       expect(Boolean(d.virtue_note), d.id).toBe(Boolean(d.virtue_note_ar));
     }
   });

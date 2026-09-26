@@ -35,7 +35,7 @@ USER_AGENT = "azkar-guard-build/1.0"  # hisnmuslim.com rejects Python's default 
 # Levels are cumulative: small ⊂ medium ⊂ full.
 ITEMS = [
     ("ayat-al-kursi", 75, "both", "small", None),
-    ("three-quls", 76, "both", "small", None),
+    ("three-quls", 76, "both", "small", None),  # split into three surahs, see SPLIT
     ("asbahna-wa-asbaha-al-mulk", 77, "morning", "medium", None),
     ("allahumma-bika-asbahna", 78, "morning", "medium", None),
     ("sayyid-al-istighfar", 79, "both", "small", None),
@@ -61,6 +61,13 @@ ITEMS = [
     ("salat-ala-an-nabi", 98, "both", "medium", None),
 ]
 
+# Source entries holding several dhikr, split at each basmala into separate items
+# (one card and counter each). The ids here replace the ITEMS id.
+SPLIT = {
+    76: ["surat-al-ikhlas", "surat-al-falaq", "surat-an-nas"],
+}
+BASMALA = "بسم الله الرحمن الرحيم"
+
 # Evening variants for morning-only items: list of (old, new) replacements applied to the
 # morning text, or the literal string "SOURCE" to take the full evening wording from the
 # source's own [وإذا أمسى قال: ...] note.
@@ -80,7 +87,9 @@ EVENING = {
 # English translation of meaning, keyed by item id ("-evening" ids for evening variants).
 TRANSLATIONS = {
     "ayat-al-kursi": "I seek refuge in Allah from Satan, the accursed. Allah — there is no deity except Him, the Ever-Living, the Sustainer of all existence. Neither drowsiness overtakes Him nor sleep. To Him belongs whatever is in the heavens and whatever is on the earth. Who is it that can intercede with Him except by His permission? He knows what is before them and what will be after them, and they encompass nothing of His knowledge except what He wills. His Kursi extends over the heavens and the earth, and their preservation tires Him not. And He is the Most High, the Most Great. (Al-Baqarah 2:255)",
-    "three-quls": "Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born, nor is there to Him any equivalent. — Say: I seek refuge in the Lord of daybreak, from the evil of what He created, from the evil of darkness when it settles, from the evil of the blowers in knots, and from the evil of an envier when he envies. — Say: I seek refuge in the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers into the breasts of mankind, from among the jinn and mankind. (Al-Ikhlas, Al-Falaq, An-Nas)",
+    "surat-al-ikhlas": "In the name of Allah, the Most Gracious, the Most Merciful. Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor is born, nor is there to Him any equivalent. (Al-Ikhlas 112)",
+    "surat-al-falaq": "In the name of Allah, the Most Gracious, the Most Merciful. Say: I seek refuge in the Lord of daybreak, from the evil of what He created, from the evil of darkness when it settles, from the evil of the blowers in knots, and from the evil of an envier when he envies. (Al-Falaq 113)",
+    "surat-an-nas": "In the name of Allah, the Most Gracious, the Most Merciful. Say: I seek refuge in the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer, who whispers into the breasts of mankind, from among the jinn and mankind. (An-Nas 114)",
     "asbahna-wa-asbaha-al-mulk": "We have reached the morning and at this very time all sovereignty belongs to Allah, and all praise is for Allah. None has the right to be worshipped except Allah, alone, without partner; to Him belong all sovereignty and praise, and He is over all things omnipotent. My Lord, I ask You for the good of this day and the good of what follows it, and I seek refuge in You from the evil of this day and the evil of what follows it. My Lord, I seek refuge in You from laziness and senility. My Lord, I seek refuge in You from torment in the Fire and punishment in the grave.",
     "asbahna-wa-asbaha-al-mulk-evening": "We have reached the evening and at this very time all sovereignty belongs to Allah, and all praise is for Allah. None has the right to be worshipped except Allah, alone, without partner; to Him belong all sovereignty and praise, and He is over all things omnipotent. My Lord, I ask You for the good of this night and the good of what follows it, and I seek refuge in You from the evil of this night and the evil of what follows it. My Lord, I seek refuge in You from laziness and senility. My Lord, I seek refuge in You from torment in the Fire and punishment in the grave.",
     "allahumma-bika-asbahna": "O Allah, by Your leave we have reached the morning and by Your leave we have reached the evening, by Your leave we live and die, and unto You is our resurrection.",
@@ -93,7 +102,7 @@ TRANSLATIONS = {
     "allahumma-afini-fi-badani": "O Allah, grant my body health. O Allah, grant my hearing health. O Allah, grant my sight health. None has the right to be worshipped except You. O Allah, I seek refuge in You from disbelief and poverty, and I seek refuge in You from the punishment of the grave. None has the right to be worshipped except You.",
     "hasbiyallahu": "Allah is sufficient for me; none has the right to be worshipped except Him. Upon Him I rely, and He is the Lord of the Mighty Throne.",
     "al-afwa-wal-afiya": "O Allah, I ask You for pardon and well-being in this life and the next. O Allah, I ask You for pardon and well-being in my religion, my worldly affairs, my family and my wealth. O Allah, veil my faults and calm my fears. O Allah, guard me from in front of me and behind me, from my right and my left, and from above me, and I seek refuge in Your greatness from being struck down from beneath me.",
-    "alim-al-ghaybi-wash-shahada": "O Allah, Knower of the unseen and the seen, Creator of the heavens and the earth, Lord and Sovereign of all things, I bear witness that none has the right to be worshipped except You. I seek refuge in You from the evil of my soul, from the evil of Satan and his call to shirk, and from committing wrong against myself or bringing it upon a Muslim.",
+    "alim-al-ghaybi-wash-shahada": "O Allah, Knower of the unseen and the seen, Creator of the heavens and the earth, Lord and Sovereign of all things, I bear witness that none has the right to be worshipped except You. I seek refuge in You from the evil of my soul, from the evil of Satan and his snares, and from committing wrong against myself or bringing it upon a Muslim.",
     "bismillahi-alladhi-la-yadurru": "In the name of Allah, with whose name nothing on earth or in the heavens can cause harm, and He is the All-Hearing, the All-Knowing.",
     "raditu-billahi-rabba": "I am pleased with Allah as my Lord, with Islam as my religion and with Muhammad ﷺ as my Prophet.",
     "ya-hayyu-ya-qayyum": "O Ever-Living, O Sustainer of all, by Your mercy I seek help; set right all my affairs and do not leave me to myself even for the blink of an eye.",
@@ -111,6 +120,44 @@ TRANSLATIONS = {
     "salat-ala-an-nabi": "O Allah, send prayers and peace upon our Prophet Muhammad.",
 }
 
+# Transliteration, keyed like TRANSLATIONS. Based on the Hisn al-Muslim English edition,
+# rewritten in one consistent scheme: ' = ع or hamza, aa/ee/oo = long vowels,
+# dh = ذ, th = ث, gh = غ, kh = خ.
+TRANSLITERATIONS = {
+    "ayat-al-kursi": "A'oodhu billaahi minash-shaytaanir-rajeem. Allaahu laa ilaaha illaa huwal-hayyul-qayyoom, laa ta'khudhuhu sinatun wa laa nawm, lahu maa fis-samaawaati wa maa fil-ard, man dhal-ladhee yashfa'u 'indahu illaa bi-idhnih, ya'lamu maa bayna aydeehim wa maa khalfahum, wa laa yuheetoona bi shay'im-min 'ilmihi illaa bimaa shaa', wasi'a kursiyyuhus-samaawaati wal-ard, wa laa ya'ooduhu hifdhuhumaa, wa huwal-'aliyyul-'adheem.",
+    "surat-al-ikhlas": "Bismillaahir-rahmaanir-raheem. Qul huwal-laahu ahad. Allaahus-samad. Lam yalid wa lam yoolad. Wa lam yakul-lahu kufuwan ahad.",
+    "surat-al-falaq": "Bismillaahir-rahmaanir-raheem. Qul a'oodhu bi rabbil-falaq. Min sharri maa khalaq. Wa min sharri ghaasiqin idhaa waqab. Wa min sharrin-naffaathaati fil-'uqad. Wa min sharri haasidin idhaa hasad.",
+    "surat-an-nas": "Bismillaahir-rahmaanir-raheem. Qul a'oodhu bi rabbin-naas. Malikin-naas. Ilaahin-naas. Min sharril-waswaasil-khannaas. Alladhee yuwaswisu fee sudoorin-naas. Minal-jinnati wan-naas.",
+    "asbahna-wa-asbaha-al-mulk": "Asbahnaa wa asbahal-mulku lillaah, wal-hamdu lillaah, laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, wa huwa 'alaa kulli shay'in qadeer. Rabbi as'aluka khayra maa fee haadhal-yawmi wa khayra maa ba'dah, wa a'oodhu bika min sharri maa fee haadhal-yawmi wa sharri maa ba'dah. Rabbi a'oodhu bika minal-kasali wa soo'il-kibar. Rabbi a'oodhu bika min 'adhaabin fin-naari wa 'adhaabin fil-qabr.",
+    "asbahna-wa-asbaha-al-mulk-evening": "Amsaynaa wa amsal-mulku lillaah, wal-hamdu lillaah, laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, wa huwa 'alaa kulli shay'in qadeer. Rabbi as'aluka khayra maa fee haadhihil-laylati wa khayra maa ba'dahaa, wa a'oodhu bika min sharri maa fee haadhihil-laylati wa sharri maa ba'dahaa. Rabbi a'oodhu bika minal-kasali wa soo'il-kibar. Rabbi a'oodhu bika min 'adhaabin fin-naari wa 'adhaabin fil-qabr.",
+    "allahumma-bika-asbahna": "Allaahumma bika asbahnaa, wa bika amsaynaa, wa bika nahyaa, wa bika namootu, wa ilaykan-nushoor.",
+    "allahumma-bika-asbahna-evening": "Allaahumma bika amsaynaa, wa bika asbahnaa, wa bika nahyaa, wa bika namootu, wa ilaykal-maseer.",
+    "sayyid-al-istighfar": "Allaahumma anta rabbee laa ilaaha illaa ant, khalaqtanee wa ana 'abduk, wa ana 'alaa 'ahdika wa wa'dika mastata't, a'oodhu bika min sharri maa sana't, aboo'u laka bi ni'matika 'alayya, wa aboo'u bi dhanbee, faghfir lee fa innahu laa yaghfirudh-dhunooba illaa ant.",
+    "allahumma-inni-asbahtu-ushhiduka": "Allaahumma innee asbahtu ushhiduka, wa ushhidu hamalata 'arshika, wa malaa'ikataka, wa jamee'a khalqika, annaka antallaahu laa ilaaha illaa anta wahdaka laa shareeka lak, wa anna Muhammadan 'abduka wa rasooluk.",
+    "allahumma-inni-asbahtu-ushhiduka-evening": "Allaahumma innee amsaytu ushhiduka, wa ushhidu hamalata 'arshika, wa malaa'ikataka, wa jamee'a khalqika, annaka antallaahu laa ilaaha illaa anta wahdaka laa shareeka lak, wa anna Muhammadan 'abduka wa rasooluk.",
+    "allahumma-ma-asbaha-bi": "Allaahumma maa asbaha bee min ni'matin aw bi ahadin min khalqika fa minka wahdaka laa shareeka lak, fa lakal-hamdu wa lakash-shukr.",
+    "allahumma-ma-asbaha-bi-evening": "Allaahumma maa amsaa bee min ni'matin aw bi ahadin min khalqika fa minka wahdaka laa shareeka lak, fa lakal-hamdu wa lakash-shukr.",
+    "allahumma-afini-fi-badani": "Allaahumma 'aafinee fee badanee, Allaahumma 'aafinee fee sam'ee, Allaahumma 'aafinee fee basaree, laa ilaaha illaa ant. Allaahumma innee a'oodhu bika minal-kufri wal-faqr, wa a'oodhu bika min 'adhaabil-qabr, laa ilaaha illaa ant.",
+    "hasbiyallahu": "Hasbiyallaahu laa ilaaha illaa huwa, 'alayhi tawakkaltu, wa huwa rabbul-'arshil-'adheem.",
+    "al-afwa-wal-afiya": "Allaahumma innee as'alukal-'afwa wal-'aafiyata fid-dunyaa wal-aakhirah. Allaahumma innee as'alukal-'afwa wal-'aafiyata fee deenee wa dunyaaya wa ahlee wa maalee. Allaahummastur 'awraatee, wa aamin raw'aatee. Allaahummahfadhnee min bayni yadayya, wa min khalfee, wa 'an yameenee, wa 'an shimaalee, wa min fawqee, wa a'oodhu bi 'adhamatika an ughtaala min tahtee.",
+    "alim-al-ghaybi-wash-shahada": "Allaahumma 'aalimal-ghaybi wash-shahaadah, faatiras-samaawaati wal-ard, rabba kulli shay'in wa maleekah, ash-hadu an laa ilaaha illaa ant, a'oodhu bika min sharri nafsee, wa min sharrish-shaytaani wa sharakih, wa an aqtarifa 'alaa nafsee soo'an aw ajurrahu ilaa muslim.",
+    "bismillahi-alladhi-la-yadurru": "Bismillaahil-ladhee laa yadurru ma'as-mihi shay'un fil-ardi wa laa fis-samaa'i wa huwas-samee'ul-'aleem.",
+    "raditu-billahi-rabba": "Radeetu billaahi rabbaa, wa bil-islaami deenaa, wa bi Muhammadin sallallaahu 'alayhi wa sallama nabiyyaa.",
+    "ya-hayyu-ya-qayyum": "Yaa hayyu yaa qayyoomu bi rahmatika astagheeth, aslih lee sha'nee kullahu, wa laa takilnee ilaa nafsee tarfata 'ayn.",
+    "asbahna-rabbil-alamin": "Asbahnaa wa asbahal-mulku lillaahi rabbil-'aalameen. Allaahumma innee as'aluka khayra haadhal-yawm, fat-hahu, wa nasrahu, wa noorahu, wa barakatahu, wa hudaahu, wa a'oodhu bika min sharri maa feehi wa sharri maa ba'dah.",
+    "asbahna-rabbil-alamin-evening": "Amsaynaa wa amsal-mulku lillaahi rabbil-'aalameen. Allaahumma innee as'aluka khayra haadhihil-laylah, fat-hahaa, wa nasrahaa, wa noorahaa, wa barakatahaa, wa hudaahaa, wa a'oodhu bika min sharri maa feehaa wa sharri maa ba'dahaa.",
+    "asbahna-ala-fitrat-al-islam": "Asbahnaa 'alaa fitratil-islaam, wa 'alaa kalimatil-ikhlaas, wa 'alaa deeni nabiyyinaa Muhammadin sallallaahu 'alayhi wa sallam, wa 'alaa millati abeenaa Ibraaheema haneefan musliman wa maa kaana minal-mushrikeen.",
+    "asbahna-ala-fitrat-al-islam-evening": "Amsaynaa 'alaa fitratil-islaam, wa 'alaa kalimatil-ikhlaas, wa 'alaa deeni nabiyyinaa Muhammadin sallallaahu 'alayhi wa sallam, wa 'alaa millati abeenaa Ibraaheema haneefan musliman wa maa kaana minal-mushrikeen.",
+    "subhanallahi-wa-bihamdihi": "Subhaanallaahi wa bihamdih.",
+    "la-ilaha-illallah-10": "Laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, wa huwa 'alaa kulli shay'in qadeer.",
+    "la-ilaha-illallah-100": "Laa ilaaha illallaahu wahdahu laa shareeka lah, lahul-mulku wa lahul-hamd, wa huwa 'alaa kulli shay'in qadeer.",
+    "subhanallahi-adada-khalqihi": "Subhaanallaahi wa bihamdih, 'adada khalqih, wa ridaa nafsih, wa zinata 'arshih, wa midaada kalimaatih.",
+    "ilman-nafian": "Allaahumma innee as'aluka 'ilman naafi'an, wa rizqan tayyiban, wa 'amalan mutaqabbalaa.",
+    "astaghfirullah-wa-atubu-ilayh": "Astaghfirullaaha wa atoobu ilayh.",
+    "audhu-bikalimatillah": "A'oodhu bi kalimaatil-laahit-taammaati min sharri maa khalaq.",
+    "salat-ala-an-nabi": "Allaahumma salli wa sallim 'alaa nabiyyinaa Muhammad.",
+}
+
 # Virtue notes keyed by source ID. "quote" = (dataset edition, dataset number, verbatim
 # excerpt), verified against the fetched hadith text; "ar" = paraphrase when no quote.
 VIRTUES = {
@@ -120,7 +167,7 @@ VIRTUES = {
         "ref_ar": "رواه الحاكم والنسائي",
     },
     76: {
-        "en": "Recited three times in the evening and in the morning, they will suffice you against everything. (Abu Dawud 5082)",
+        "en": "Al-Ikhlas, al-Falaq and an-Nas, recited three times in the evening and in the morning, will suffice you against everything. (Abu Dawud 5082)",
         "quote": ("abudawud", 5082, "حِينَ تُمْسِي وَحِينَ تُصْبِحُ ثَلاَثَ مَرَّاتٍ تَكْفِيكَ مِنْ كُلِّ شَىْءٍ"),
         "ref_ar": "رواه أبو داود (5082)",
     },
@@ -224,6 +271,14 @@ def apply_replacements(text: str, replacements: list[tuple[str, str]], source_id
     return text
 
 
+def split_basmala(text: str, source_id: int, count: int) -> list[str]:
+    """Split a text holding several surahs at each basmala, dropping the "." separators."""
+    parts = [p.strip().rstrip(".").strip() for p in text.split(BASMALA) if p.strip()]
+    if len(parts) != count or text.count(BASMALA) != count:
+        sys.exit(f"source #{source_id}: expected {count} basmala-separated parts, got {len(parts)}")
+    return [f"{BASMALA} {p}" for p in parts]
+
+
 def virtue_ar(source_id: int, virtue: dict) -> str:
     """Arabic virtue note: a verified verbatim hadith excerpt, or the marked paraphrase."""
     if "quote" not in virtue:
@@ -255,11 +310,18 @@ def main() -> None:
                 "level": level,
                 "source": f"Hisn al-Muslim, hisnmuslim.com #{source_id}",
                 "translation_en": TRANSLATIONS[id_],
+                "transliteration": TRANSLITERATIONS[id_],
             }
             if virtue:
                 obj["virtue_note"] = virtue["en"]
                 obj["virtue_note_ar"] = virtue_note_ar
             return obj
+
+        if source_id in SPLIT:
+            ids = SPLIT[source_id]
+            for id_, text in zip(ids, split_basmala(morning_text, source_id, len(ids))):
+                out.append(make(id_, session, text))
+            continue
 
         out.append(make(item_id, session, morning_text))
 

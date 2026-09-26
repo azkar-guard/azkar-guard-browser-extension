@@ -14,9 +14,9 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
 
   | Level | Morning | Evening |
   |---|---|---|
-  | Small | 6 azkar, ~2 min | 7 azkar, ~3 min |
-  | Medium | 14 azkar, ~8 min | 15 azkar, ~8 min |
-  | Full | 23 azkar, ~10 min | 20 azkar, ~10 min |
+  | Small | 8 azkar, ~3 min | 9 azkar, ~3 min |
+  | Medium | 16 azkar, ~8 min | 17 azkar, ~9 min |
+  | Full | 25 azkar, ~16 min | 22 azkar, ~11 min |
 
 - **New tab page:** shows the checklist while a session is pending, and a calm "complete" screen once it's done.
 - **Toolbar popup:** the same checklist. The badge shows how many azkar are left in the current window.
@@ -24,7 +24,7 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
 - **Site banner (opt-in):** a small banner on websites while a session is pending. It needs host access, which is requested only when you enable it and removed when you disable it. After you dismiss it, it comes back after 60, 30 or 10 minutes, depending on the strictness setting.
 - **Streak:** a day counts only when both morning and evening are complete. Today being still in progress doesn't break the streak.
 - **Language:** English or Arabic interface. Arabic switches the whole UI to right-to-left. The dhikr is always shown in Arabic.
-  - **English mode** adds an English translation of the meaning under each dhikr.
+  - **English mode** adds a transliteration and an English translation of the meaning under each dhikr.
   - **Arabic mode** shows the virtue notes as Arabic hadith text.
 
   The default follows the browser's UI language. Switch with the toggle on the new tab page, the popup or the settings page.
@@ -34,7 +34,7 @@ All state lives in `chrome.storage.local`. There is no account, backend or sync 
 
 ## Local setup
 
-Requirements: Node 22.12+ (24 LTS recommended) and Chrome 120+.
+Requirements: Node 22.12+ (`.nvmrc` pins 24 LTS) and Chrome 120+.
 
 ```bash
 npm install
@@ -66,9 +66,11 @@ After code changes, run `npm run build` again and click the reload icon on the e
 - **Verbatim Arabic.** The dhikr text is taken exactly from between the source's `(( ))` delimiters. Trailing instruction notes such as `(ثلاثَ مرَّاتٍ)` are dropped, since the counter shows the count.
 - **Unicode normalization.** Text is NFC-normalized. This only reorders combining marks: the source stores shadda before fatha in places. The result is canonically equivalent and renders the same.
 - **Evening variants.** These are built by applying exactly the substitutions the source prescribes in its `وإذا أمسى قال` notes. When the source gives the full evening wording (#78, #89), that wording is used as-is, unvocalized, just as the source prints it.
+- **Three Quls split.** Source #76 holds al-Ikhlas, al-Falaq and an-Nas in one entry. The script splits it at each «بسم الله الرحمن الرحيم» into three items, each with its own counter of 3. The build fails unless there are exactly three parts.
 - **One count correction.** Source #83 (`حسبي الله…`) has `REPEAT: 1`, but its own text says seven times. `required_count` is 7.
 
 - **English translations.** These are translations of meaning, adapted from the Hisn al-Muslim English edition (`hisnmuslim.com/api/en/27.json`). Inline notes are removed and obvious errors are fixed. For example, #86 says "All-Seeing" for السميع, which means All-Hearing.
+- **Transliteration.** Based on the English edition's transliteration, rewritten in one consistent scheme: `'` for ع and hamza; `aa`/`ee`/`oo` for long vowels; `dh` for ذ, `th` for ث, `gh` for غ and `kh` for خ. The source's own scheme writes ع as `AA` and mixes instruction notes into the text.
 - **Arabic virtue notes.** These are verbatim hadith excerpts with references. At build time, each excerpt is checked against the full hadith text in [fawazahmed0/hadith-api](https://github.com/fawazahmed0/hadith-api), and the build fails if one doesn't match. The exception is #75 (al-Hakim) and #98 (at-Tabarani): those collections aren't in the dataset, so their notes are paraphrases marked «بمعناه».
 
 Each entry follows the shared data model plus these fields:
@@ -82,6 +84,7 @@ Each entry follows the shared data model plus these fields:
   "virtue_note": "…",             // optional, English
   "virtue_note_ar": "…",          // present whenever virtue_note is
   "translation_en": "…",          // English translation of meaning
+  "transliteration": "…",         // Latin transliteration
   "level": "small",               // smallest level that includes it: small ⊂ medium ⊂ full
   "source": "Hisn al-Muslim, hisnmuslim.com #75"
 }
