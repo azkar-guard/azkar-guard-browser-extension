@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Azkar Guard</title>
+    <link rel="stylesheet" href="../ui/base.css" />
+    <link rel="stylesheet" href="./newtab.css" />
+  </head>
+  <!-- Hidden until main.ts decides whether to show the checklist or hand over to Chrome's new tab. -->
+  <body hidden>
+    <div class="page">
+      <nav>
+        <span class="brand">Azkar Guard</span>
+        <div class="nav-actions">
+          <div class="toolbar" id="toolbar"></div>
+          <a href="#" id="open-settings" data-i18n="action.settings">Settings</a>
+        </div>
+      </nav>
+      <main id="app"></main>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
