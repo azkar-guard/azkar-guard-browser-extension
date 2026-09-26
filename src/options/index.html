@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Azkar Guard settings</title>
+    <link rel="stylesheet" href="../ui/base.css" />
+    <link rel="stylesheet" href="./options.css" />
+  </head>
+  <body>
+    <main class="page">
+      <h1>Azkar Guard settings</h1>
+
+      <form id="form" novalidate>
+        <fieldset>
+          <legend>Location (for prayer times)</legend>
+          <div>
+            <label class="radio"><input type="radio" name="kind" value="city" checked /> City</label>
+            <label class="radio"><input type="radio" name="kind" value="coords" /> Coordinates</label>
+          </div>
+
+          <div id="city-fields" class="row">
+            <label>City <input name="city" autocomplete="address-level2" placeholder="Cairo" /></label>
+            <label>Country <input name="country" autocomplete="country-name" placeholder="Egypt" /></label>
+          </div>
+
+          <div id="coords-fields" class="row" hidden>
+            <label>Latitude <input name="latitude" inputmode="decimal" placeholder="30.0444" /></label>
+            <label>Longitude <input name="longitude" inputmode="decimal" placeholder="31.2357" /></label>
+            <button type="button" class="btn secondary" id="locate">Use my current location</button>
+          </div>
+
+          <label>
+            Calculation method
+            <select name="method" id="method"></select>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Azkar</legend>
+          <label>
+            Default level
+            <select name="level" id="level"></select>
+          </label>
+          <p class="muted">You can also switch level from the checklist, depending on your time and energy that day.</p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Reminders</legend>
+          <label class="check-row">
+            <input type="checkbox" name="notifications" />
+            Notify me every 30 minutes while a session is incomplete
+          </label>
+          <label class="check-row">
+            <input type="checkbox" name="siteBanner" id="siteBanner" />
+            Show a reminder banner on websites I visit
+          </label>
+          <p class="muted">The banner needs access to all sites. Chrome will ask you to allow it. It only reads whether a session is pending and never reads page content.</p>
+          <label>
+            Banner strictness
+            <select name="strictness">
+              <option value="gentle">Gentle: reappears 60 min after dismissing</option>
+              <option value="normal">Normal: reappears 30 min after dismissing</option>
+              <option value="strict">Strict: reappears 10 min after dismissing</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Save</button>
+          <span id="status" role="status" class="muted"></span>
+        </div>
+      </form>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

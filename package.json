@@ -1,0 +1,19 @@
+{
+  "name": "azkar-guard-browser-extension",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run typecheck && vite build && vite build --config vite.content.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "azkar": "python3 scripts/build_azkar.py",
+    "icons": "python3 scripts/make_icons.py"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}

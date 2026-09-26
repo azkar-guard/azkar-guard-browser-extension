@@ -1,0 +1,16 @@
+body {
+  width: 400px;
+  max-height: 600px;
+  padding: 1rem;
+}
+
+.arabic {
+  font-size: 1.2rem;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
