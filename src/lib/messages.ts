@@ -9,4 +9,13 @@ export type BannerMessage =
 /** Banner strings arrive pre-localized so the content script stays dependency-free. */
 export type BannerStatus =
   | { show: false }
-  | { show: true; lang: Lang; title: string; quote: string; open: string; later: string };
+  | {
+      show: true;
+      lang: Lang;
+      title: string;
+      quote: string;
+      open: string;
+      later: string;
+      /** Shown in place of the quote after each "Later" dodge, in order. */
+      nudges: string[];
+    };
