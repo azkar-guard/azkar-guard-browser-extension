@@ -1,6 +1,7 @@
 import type { Lang } from "./types";
 
 const en = {
+  "brand.name": "Azkar Guard",
   "session.morning": "Morning Azkar",
   "session.evening": "Evening Azkar",
   "level.small": "Small",
@@ -99,6 +100,7 @@ const en = {
 type Key = keyof typeof en;
 
 const ar: Record<Key, string> = {
+  "brand.name": "حارس الأذكار",
   "session.morning": "أذكار الصباح",
   "session.evening": "أذكار المساء",
   "level.small": "مختصر",

@@ -62,7 +62,6 @@ After code changes, run `npm run build` again and click the reload icon on the e
 | `npm test` | Unit tests (prayer windows, streak, azkar data) |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run azkar` | Regenerate `src/data/azkar.json` from the source (needs network) |
-| `npm run icons` | Regenerate `public/icons/*.png` |
 
 ## Azkar data
 
@@ -113,7 +112,8 @@ Calls to `api.aladhan.com` need no host permission because the API allows cross-
 ## Project layout
 
 ```
-public/manifest.json      MV3 manifest; icons in public/icons
+public/manifest.json      MV3 manifest; icons in public/icons (from the brand kit)
+brand/                    brand kit: logo system spec, reference sheet, derived logo crops
 src/background/           service worker: alarms, notifications, badge, banner registration
 src/content/banner.ts     opt-in site banner (built separately as a classic IIFE script)
 src/lib/                  types, storage, prayer times, windows, streak, session state

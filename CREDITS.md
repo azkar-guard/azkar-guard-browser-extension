@@ -70,3 +70,9 @@ Written for this project in a consistent scheme. The source's own transliteratio
 - **What we use:** Fajr and Maghrib times from [api.aladhan.com](https://aladhan.com/prayer-times-api), fetched at runtime.
 - **Terms:** free to use, provided without warranty ([Credits and Terms](https://aladhan.com/credits-and-terms)). No attribution is required, but it is given here and in the settings page. The computed times may differ from local authorities.
 - **Privacy:** requests include the user's city or coordinates. See [PRIVACY.md](PRIVACY.md).
+
+## 7. Fonts
+
+- **What we use:** [Inter](https://rsms.me/inter/) (Latin) and [Tajawal](https://fonts.google.com/specimen/Tajawal) (Arabic) for the interface, bundled from the `@fontsource/inter` and `@fontsource/tajawal` packages.
+- **Terms:** SIL Open Font License 1.1, which allows free bundling and redistribution with software.
+

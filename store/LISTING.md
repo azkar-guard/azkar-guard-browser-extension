@@ -18,8 +18,8 @@ Upload the zip in **Package → Upload new package**.
 | Summary | *from the package* (`_locales/*/messages.json` → `extDescription`) |
 | Category | Productivity |
 | Language | English (default), plus an Arabic listing |
-| Icon | `public/icons/icon-128.png` (in the package) |
-| Screenshots (1280×800) | `store/screenshots/1-…` to `5-…`, in order |
+| Icon | `public/icons/icon-128.png` (in the package, from the brand kit) |
+| Screenshots (1280×800) | English listing: `store/screenshots/en/1-…` to `5-…`, in order. Arabic listing: `store/screenshots/ar/1-…` to `5-…` |
 | Small promo tile (440×280) | `store/promo-small-440x280.png` |
 | Marquee (1400×560, optional) | `store/promo-marquee-1400x560.png` |
 | Homepage URL | https://github.com/azkar-guard/azkar-guard-browser-extension |
@@ -132,4 +132,4 @@ https://github.com/azkar-guard/azkar-guard-browser-extension/blob/main/PRIVACY.m
 - [ ] Bump `version` in `public/manifest.json` and `package.json`.
 - [ ] `npm test` and `npm run package`.
 - [ ] Manual QA on a clean Chrome profile (see the release checklist issue).
-- [ ] Re-capture screenshots if the UI changed.
+- [ ] Re-capture screenshots if the UI changed (`store/tools/README.md`).
