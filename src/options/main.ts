@@ -167,6 +167,10 @@ function locate(): void {
     (pos) => {
       field("latitude").value = pos.coords.latitude.toFixed(4);
       field("longitude").value = pos.coords.longitude.toFixed(4);
+      // Prayer times are computed from the coordinates directly, so a detected
+      // position always switches to coordinate mode (no reverse geocoding needed).
+      (form.elements.namedItem("kind") as RadioNodeList).value = "coords";
+      toggleLocationFields();
       setStatus("options.geoFound");
     },
     (err) => setStatus("options.geoFailed", { error: err.message }, true),

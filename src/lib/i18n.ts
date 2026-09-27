@@ -92,7 +92,7 @@ const en = {
   "options.bannerDenied": "Site access was not granted, so the banner stays off.",
   "options.geoUnavailable": "Geolocation is not available in this browser.",
   "options.geoLocating": "Getting your location…",
-  "options.geoFound": "Location found. Press Save to apply.",
+  "options.geoFound": "Location found and filled in as coordinates. Press Save to apply.",
   "options.geoFailed": "Could not get location: {error}",
 };
 
@@ -190,7 +190,7 @@ const ar: Record<Key, string> = {
   "options.bannerDenied": "لم يُمنح إذن الوصول إلى المواقع، لذا سيبقى الشريط مُعطّلًا.",
   "options.geoUnavailable": "تحديد الموقع غير متاح في هذا المتصفح.",
   "options.geoLocating": "جارٍ تحديد موقعك…",
-  "options.geoFound": "تم تحديد الموقع. اضغط حفظ للتطبيق.",
+  "options.geoFound": "تم تحديد موقعك وإدخاله كإحداثيات. اضغط حفظ للتطبيق.",
   "options.geoFailed": "تعذّر تحديد الموقع: {error}",
 };
 
