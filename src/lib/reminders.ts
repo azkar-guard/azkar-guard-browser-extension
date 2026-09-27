@@ -6,9 +6,10 @@ export interface Reminder {
 }
 
 /**
- * Short reminders on the virtue of dhikr. Arabic Qur'an text is from api.alquran.cloud
- * (quran-simple); the hadith is al-Bukhari 6407 as in fawazahmed0/hadith-api.
- * English is a translation of meaning.
+ * Short reminders on the virtue of dhikr. Arabic Qur'an text is Tanzil's quran-simple
+ * (via api.alquran.cloud), which may only be copied verbatim: never edit these strings,
+ * not even to add verse markers. See CREDITS.md. The hadith is al-Bukhari 6407 as in
+ * fawazahmed0/hadith-api. English is a translation of meaning.
  */
 const REMINDERS: Record<Lang, Reminder>[] = [
   {
@@ -25,7 +26,7 @@ const REMINDERS: Record<Lang, Reminder>[] = [
       ref: "Qur'an 33:41–42",
     },
     ar: {
-      text: "يَا أَيُّهَا الَّذِينَ آمَنُوا اذْكُرُوا اللَّهَ ذِكْرًا كَثِيرًا ۝ وَسَبِّحُوهُ بُكْرَةً وَأَصِيلًا",
+      text: "يَا أَيُّهَا الَّذِينَ آمَنُوا اذْكُرُوا اللَّهَ ذِكْرًا كَثِيرًا وَسَبِّحُوهُ بُكْرَةً وَأَصِيلًا",
       ref: "الأحزاب: 41–42",
     },
   },

@@ -142,3 +142,14 @@ scripts/                  azkar data + icon generators
 - Firefox and Edge. Browser calls go through `chrome.*`, which Firefox also supports for MV3. The follow-up is mostly the manifest: Firefox uses `background.scripts` instead of `service_worker` and needs `browser_specific_settings`.
 - Accounts and sync (Phase 3).
 - Removing the new tab override. The manifest can't make it conditional, so when a session is complete the page redirects to Chrome's new tab instead. You may see a brief blank frame, and the address bar isn't focused the way it is on Chrome's own new tab.
+
+## License, credits and privacy
+
+- **Code:** MIT, see [LICENSE](LICENSE).
+- **Bundled content:** the azkar text, translation, hadith excerpts and Qur'an verses are under their sources' own terms. See [CREDITS.md](CREDITS.md). In short:
+  - **Hisn al-Muslim** allows free distribution without changes, so the extension must stay free.
+  - **Tanzil's Qur'an text** may only be copied verbatim, with attribution and a link to tanzil.net.
+  - **The English translation's terms are still unconfirmed.**
+- **Privacy:** see [PRIVACY.md](PRIVACY.md). Nothing leaves the device except the location sent to AlAdhan for prayer times.
+
+`npm run build` copies these three files into `dist/`, so they ship with every package.
