@@ -13,16 +13,16 @@ export interface Reminder {
  */
 const REMINDERS: Record<Lang, Reminder>[] = [
   {
-    en: { text: "Verily, in the remembrance of Allah do hearts find rest.", ref: "Qur'an 13:28" },
+    en: { text: "Surely, in the remembrance of Allah hearts find peace.", ref: "Qur'an 13:28" },
     ar: { text: "أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ", ref: "الرعد: 28" },
   },
   {
-    en: { text: "Remember Me; I will remember you.", ref: "Qur'an 2:152" },
+    en: { text: "So remember Me, and I will remember you.", ref: "Qur'an 2:152" },
     ar: { text: "فَاذْكُرُونِي أَذْكُرْكُمْ", ref: "البقرة: 152" },
   },
   {
     en: {
-      text: "O you who have believed, remember Allah with much remembrance, and exalt Him morning and evening.",
+      text: "O you who believe, remember Allah often, and glorify Him morning and evening.",
       ref: "Qur'an 33:41–42",
     },
     ar: {
@@ -31,12 +31,12 @@ const REMINDERS: Record<Lang, Reminder>[] = [
     },
   },
   {
-    en: { text: "So exalt Allah when you reach the evening and when you reach the morning.", ref: "Qur'an 30:17" },
+    en: { text: "So glorify Allah when you enter the evening and when you enter the morning.", ref: "Qur'an 30:17" },
     ar: { text: "فَسُبْحَانَ اللَّهِ حِينَ تُمْسُونَ وَحِينَ تُصْبِحُونَ", ref: "الروم: 17" },
   },
   {
     en: {
-      text: "The example of the one who remembers his Lord and the one who does not is like the living and the dead.",
+      text: "The one who remembers his Lord and the one who does not are like the living and the dead.",
       ref: "al-Bukhari 6407",
     },
     ar: { text: "مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لاَ يَذْكُرُ مَثَلُ الْحَىِّ وَالْمَيِّتِ", ref: "رواه البخاري (6407)" },

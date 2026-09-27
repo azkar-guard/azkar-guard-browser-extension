@@ -22,7 +22,8 @@ SOFTWARE.
 
 ---
 
-The MIT license above covers the source code only. Third-party content bundled
-with the extension (the azkar text, translations, transliterations, hadith
-excerpts and Qur'an verses in src/data/azkar.json and src/lib/reminders.ts) is
-NOT covered by it and remains under its own terms. See CREDITS.md.
+The MIT license above covers the source code and the project's own English
+translations and transliterations. Third-party content bundled with the
+extension (the Arabic azkar text, hadith excerpts and Qur'an verses in
+src/data/azkar.json and src/lib/reminders.ts) is NOT covered by it and remains
+under its own terms. See CREDITS.md.

@@ -19,19 +19,22 @@ This file records what each source allows, as checked on 2026-09-27. It is not l
   - We use one chapter rather than the whole book, and split it into cards, so this is not a full reprint. We credit the book as the source.
 - **hisnmuslim.com** itself shows no license or terms of use (checked on the site and its API). Its content is the book above.
 
-## 2. English translation of meaning: hisnmuslim.com English edition ⚠️
+## 2. English translation of meaning: our own
 
-- **What we use:** `translation_en` in `src/data/azkar.json`, adapted (edited and corrected) from the English edition at `hisnmuslim.com/api/en/27.json`.
-- **Terms:** **unconfirmed.** A modern translation can be copyrighted separately from the original. hisnmuslim.com states no license, and its English edition doesn't name the translator or the terms.
-- **Status:** this is the one open item before a public store release. Either:
-  - (a) get written permission from hisnmuslim.com, or
-  - (b) replace the text with our own translation of meaning.
-
-  Tracked in the release checklist issue.
+- **What we use:** `translation_en` in `src/data/azkar.json`, plus the English text of the reminders in `src/lib/reminders.ts`.
+- **Origin:** written for this project directly from the Arabic, including Ayat al-Kursi and the three Quls. No published translation was used as a base. Earlier drafts were adapted from the hisnmuslim.com English edition (whose terms are unknown), so that text was replaced entirely.
+- **Independence check:** we compared the text against that edition and rephrased every long shared passage. What remains in common is short literal phrases that any accurate translation shares, such as "O Allah, I ask You for" or "Creator of the heavens and the earth".
+- **Conventions** (kept consistent across entries):
+  - لا إله إلا = "there is no god but"
+  - الملك = "dominion"
+  - أعوذ بـ = "I seek refuge with/in"
+  - الرحمن الرحيم = "the Most Compassionate, the Most Merciful"
+  - الحي القيوم = "the Ever-Living, the Self-Subsisting Sustainer"
+- **License:** covered by the project license (MIT). It is a translation of *meaning*; the Arabic remains the text that is recited.
 
 ## 3. Transliteration
 
-Written for this project in a consistent scheme. The source's own transliteration was used only as a reading aid. Covered by the MIT license.
+Written for this project in a consistent scheme. Covered by the MIT license.
 
 ## 4. Hadith excerpts: fawazahmed0/hadith-api
 

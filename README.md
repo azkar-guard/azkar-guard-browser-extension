@@ -74,7 +74,7 @@ After code changes, run `npm run build` again and click the reload icon on the e
 - **Three Quls split.** Source #76 holds al-Ikhlas, al-Falaq and an-Nas in one entry. The script splits it at each «بسم الله الرحمن الرحيم» into three items, each with its own counter of 3. The build fails unless there are exactly three parts.
 - **One count correction.** Source #83 (`حسبي الله…`) has `REPEAT: 1`, but its own text says seven times. `required_count` is 7.
 
-- **English translations.** These are translations of meaning, adapted from the Hisn al-Muslim English edition (`hisnmuslim.com/api/en/27.json`). Inline notes are removed and obvious errors are fixed. For example, #86 says "All-Seeing" for السميع, which means All-Hearing.
+- **English translations.** Our own translations of meaning, written directly from the Arabic. See CREDITS.md §2 for the conventions used.
 - **Transliteration.** Based on the English edition's transliteration, rewritten in one consistent scheme: `'` for ع and hamza; `aa`/`ee`/`oo` for long vowels; `dh` for ذ, `th` for ث, `gh` for غ and `kh` for خ. The source's own scheme writes ع as `AA` and mixes instruction notes into the text.
 - **Arabic virtue notes.** These are verbatim hadith excerpts with references. At build time, each excerpt is checked against the full hadith text in [fawazahmed0/hadith-api](https://github.com/fawazahmed0/hadith-api), and the build fails if one doesn't match. The exception is #75 (al-Hakim) and #98 (at-Tabarani): those collections aren't in the dataset, so their notes are paraphrases marked «بمعناه».
 
@@ -146,10 +146,10 @@ scripts/                  azkar data + icon generators
 ## License, credits and privacy
 
 - **Code:** MIT, see [LICENSE](LICENSE).
-- **Bundled content:** the azkar text, translation, hadith excerpts and Qur'an verses are under their sources' own terms. See [CREDITS.md](CREDITS.md). In short:
+- **Bundled content:** the Arabic azkar text, hadith excerpts and Qur'an verses are under their sources' own terms. See [CREDITS.md](CREDITS.md). In short:
   - **Hisn al-Muslim** allows free distribution without changes, so the extension must stay free.
   - **Tanzil's Qur'an text** may only be copied verbatim, with attribution and a link to tanzil.net.
-  - **The English translation's terms are still unconfirmed.**
+  - **The English translation and transliteration** are our own, under MIT.
 - **Privacy:** see [PRIVACY.md](PRIVACY.md). Nothing leaves the device except the location sent to AlAdhan for prayer times.
 
 `npm run build` copies these three files into `dist/`, so they ship with every package.
