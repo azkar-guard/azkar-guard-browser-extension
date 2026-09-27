@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "Azkar Guard",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "extDescription": {
+    "message": "Keeps reminding you until your morning and evening Azkar are complete.",
+    "description": "Short description, max 132 characters."
+  }
+}

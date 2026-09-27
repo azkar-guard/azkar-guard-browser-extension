@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "حارس الأذكار",
+    "description": "Extension name shown in the Chrome Web Store and chrome://extensions."
+  },
+  "extDescription": {
+    "message": "يذكّرك باستمرار حتى تُتمّ أذكار الصباح والمساء.",
+    "description": "Short description, max 132 characters."
+  }
+}

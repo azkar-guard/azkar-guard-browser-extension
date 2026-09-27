@@ -10,6 +10,7 @@ const DODGES = 3;
 const EDGE_GAP = 16;
 
 const STYLE = `
+  /* Brand colours (brand/brand-system.md). */
   :host { all: initial; }
   .banner {
     --x: 0px;
@@ -19,21 +20,21 @@ const STYLE = `
     box-sizing: border-box; width: max-content; max-width: min(640px, calc(100vw - 32px));
     display: flex; align-items: center; gap: 16px;
     padding: 12px 16px; border-radius: 12px;
-    background: #1b1f1c; color: #e8ebe8; border: 1px solid #2d332f;
+    background: #0b1f18; color: #f8faf6; border: 1px solid #1d3b2e;
     box-shadow: 0 8px 24px rgba(0,0,0,.25);
     font: calc(14px * var(--s, 1))/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   .text { min-width: 0; }
   .title { font-weight: 600; margin: 0 0 2px; }
-  .quote { margin: 0; color: #9aa69f; font-size: 0.9em; }
+  .quote { margin: 0; color: #9ca3af; font-size: 0.9em; }
   .quote.nudge { color: #f4c56a; font-size: 0.93em; }
   .actions { display: flex; gap: 8px; flex: none; }
   button {
     font: inherit; cursor: pointer; border-radius: 8px; padding: 6px 12px;
-    border: 1px solid #5cc08f; white-space: nowrap;
+    border: 1px solid #22c55e; white-space: nowrap;
   }
-  .open { background: #5cc08f; color: #121513; }
-  .later { background: transparent; color: #5cc08f; }
+  .open { background: #22c55e; color: #0b1f18; font-weight: 600; }
+  .later { background: transparent; color: #22c55e; }
   @media (max-width: 520px) {
     .banner { flex-direction: column; align-items: stretch; }
   }

@@ -1,46 +1,58 @@
-/* Light tokens by default; dark via the OS preference unless the user forced
+/* Brand fonts (OFL-1.1), bundled locally so no requests go to Google.
+   Inter covers Latin; Arabic UI text falls through to Tajawal. */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+@import "@fontsource/tajawal/arabic-400.css";
+@import "@fontsource/tajawal/arabic-500.css";
+@import "@fontsource/tajawal/arabic-700.css";
+
+/* Brand palette (brand/brand-system.md): deep green #0F5132, green #22C55E,
+   cream #F8FAF6, slate #1F2937, gray #9CA3AF.
+   Light tokens by default; dark via the OS preference unless the user forced
    light, or always when the user picked dark ([data-theme] set from settings). */
 :root {
   color-scheme: light;
-  --bg: #f7f6f2;
+  --bg: #f8faf6;
   --surface: #ffffff;
-  --text: #1c1f1d;
-  --muted: #5f6b64;
-  --border: #dcdfd9;
-  --accent: #1f6f4a;
-  --accent-soft: #e3efe8;
-  --on-accent: #ffffff;
+  --text: #1f2937;
+  /* Brand gray #9CA3AF is too light for text on cream; one step darker keeps contrast. */
+  --muted: #6b7280;
+  --border: #dde3dc;
+  --accent: #0f5132;
+  --accent-soft: #e4f2ea;
+  --on-accent: #f8faf6;
   --warn: #b45309;
   --radius: 12px;
   --arabic: "Amiri", "Noto Naskh Arabic", "Geeza Pro", "Traditional Arabic", serif;
-  --ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ui: "Inter", "Tajawal", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #121513;
-    --surface: #1b1f1c;
-    --text: #e8ebe8;
-    --muted: #9aa69f;
-    --border: #2d332f;
-    --accent: #5cc08f;
-    --accent-soft: #1f3128;
-    --on-accent: #121513;
+    --bg: #0b1f18;
+    --surface: #10291f;
+    --text: #f8faf6;
+    --muted: #9ca3af;
+    --border: #1d3b2e;
+    --accent: #22c55e;
+    --accent-soft: #143a2a;
+    --on-accent: #0b1f18;
     --warn: #f59e0b;
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #121513;
-  --surface: #1b1f1c;
-  --text: #e8ebe8;
-  --muted: #9aa69f;
-  --border: #2d332f;
-  --accent: #5cc08f;
-  --accent-soft: #1f3128;
-  --on-accent: #121513;
+  --bg: #0b1f18;
+  --surface: #10291f;
+  --text: #f8faf6;
+  --muted: #9ca3af;
+  --border: #1d3b2e;
+  --accent: #22c55e;
+  --accent-soft: #143a2a;
+  --on-accent: #0b1f18;
   --warn: #f59e0b;
 }
 
