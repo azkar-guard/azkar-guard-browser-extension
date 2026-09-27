@@ -153,3 +153,11 @@ scripts/                  azkar data + icon generators
 - **Privacy:** see [PRIVACY.md](PRIVACY.md). Nothing leaves the device except the location sent to AlAdhan for prayer times.
 
 `npm run build` copies these three files into `dist/`, so they ship with every package.
+
+## Releasing to the Chrome Web Store
+
+```bash
+npm run package        # builds and writes azkar-guard-v<version>.zip
+```
+
+Everything to paste into the store dashboard is in [store/LISTING.md](store/LISTING.md): the descriptions (EN/AR), single purpose, permission justifications and privacy answers. Screenshots and promo tiles are in `store/`.
