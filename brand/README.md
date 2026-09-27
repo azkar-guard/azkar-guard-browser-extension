@@ -17,6 +17,7 @@ The kit ships no separate vector files, so these are cropped from `logo-system-r
 | `logo-primary-dark.png` | "Primary logo (dark background)" lockup | Promo tiles, dark backgrounds |
 | `logo-secondary-light.png` | "Secondary logo (light background)" lockup | Light backgrounds |
 | `banner-night.png` | Bottom banner | Marketing |
+| `github-avatar.png` (460×460) | "App icon", centred with a feathered edge on its own background | GitHub organization avatar (upload manually: org Settings → Profile) |
 
 Icons are square crops with the rounded corners made transparent and downscaled in halving steps. The largest clean icon is 213 px, so there is no 512 px icon yet. The store only needs 128 px.
 
