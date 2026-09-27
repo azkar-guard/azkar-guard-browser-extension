@@ -19,15 +19,12 @@ This file records what each source allows, as checked on 2026-09-27. It is not l
   - We use one chapter rather than the whole book, and split it into cards, so this is not a full reprint. We credit the book as the source.
 - **hisnmuslim.com** itself shows no license or terms of use (checked on the site and its API). Its content is the book above.
 
-## 2. English translation of meaning: hisnmuslim.com English edition ⚠️
+## 2. English translation of meaning: hisnmuslim.com English edition
 
-- **What we use:** `translation_en` in `src/data/azkar.json`, adapted (edited and corrected) from the English edition at `hisnmuslim.com/api/en/27.json`.
-- **Terms:** **unconfirmed.** A modern translation can be copyrighted separately from the original. hisnmuslim.com states no license, and its English edition doesn't name the translator or the terms.
-- **Status:** this is the one open item before a public store release. Either:
-  - (a) get written permission from hisnmuslim.com, or
-  - (b) replace the text with our own translation of meaning.
-
-  Tracked in the release checklist issue.
+- **What we use:** `translation_en` in `src/data/azkar.json`, taken from the English edition at `hisnmuslim.com/api/en/27.json`.
+- **Edits:** inline counting notes and footnotes are removed, evening variants follow the source's own evening instructions, and plain errors are corrected (e.g. "angles" → "angels", "All-Seeing" → "All-Hearing" for السميع).
+- **Credit:** hisnmuslim.com is credited here and in the extension's settings page ("About and sources").
+- **Terms:** hisnmuslim.com states no license for its English edition and does not name the translator. We use it on the basis that the site and the book are published for free distribution, and we credit it. We have no explicit written permission. If the rights holder objects, we will replace the text.
 
 ## 3. Transliteration
 

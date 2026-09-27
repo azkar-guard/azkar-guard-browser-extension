@@ -149,7 +149,7 @@ scripts/                  azkar data + icon generators
 - **Bundled content:** the azkar text, translation, hadith excerpts and Qur'an verses are under their sources' own terms. See [CREDITS.md](CREDITS.md). In short:
   - **Hisn al-Muslim** allows free distribution without changes, so the extension must stay free.
   - **Tanzil's Qur'an text** may only be copied verbatim, with attribution and a link to tanzil.net.
-  - **The English translation's terms are still unconfirmed.**
+  - **The English translation** comes from the hisnmuslim.com English edition and is credited. The site states no explicit license for it.
 - **Privacy:** see [PRIVACY.md](PRIVACY.md). Nothing leaves the device except the location sent to AlAdhan for prayer times.
 
 `npm run build` copies these three files into `dist/`, so they ship with every package.
