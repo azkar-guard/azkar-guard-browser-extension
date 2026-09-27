@@ -33,6 +33,7 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
 
   The default follows the browser's UI language. Switch with the toggle on the new tab page, the popup or the settings page.
 - **Theme:** system, light or dark. The toggle cycles through them; the settings page has a select.
+- **Text size:** regular, medium (×1.15) or large (×1.35), for people who need bigger text. The `A` / `A+` / `A++` toggle cycles through them; the settings page has a select. It scales the checklist, popup (which also widens), settings page and site banner.
 
 All state lives in `chrome.storage.local`. There is no account, backend or sync in this phase.
 

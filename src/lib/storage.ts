@@ -19,6 +19,14 @@ export const DEFAULT_SETTINGS: Settings = {
   siteBanner: false,
   language: "en",
   theme: "system",
+  textSize: "regular",
+};
+
+/** Text scale per size setting, relative to the regular size. */
+export const TEXT_SCALE: Record<Settings["textSize"], number> = {
+  regular: 1,
+  medium: 1.15,
+  large: 1.35,
 };
 
 /** Browser UI language decides the default interface language until the user picks one. */

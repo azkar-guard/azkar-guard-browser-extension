@@ -18,4 +18,6 @@ export type BannerStatus =
       later: string;
       /** Shown in place of the quote after each "Later" dodge, in order. */
       nudges: string[];
+      /** Text scale from the text size setting (1 = regular). */
+      scale: number;
     };

@@ -1,5 +1,6 @@
 body {
-  width: 400px;
+  /* Grows with the text size setting; Chrome caps popups at 800px. */
+  width: calc(400px * var(--text-scale, 1));
   max-height: 600px;
   padding: 1rem;
 }

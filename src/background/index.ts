@@ -5,7 +5,7 @@ import { checklistUrl } from "../lib/pages";
 import type { BannerMessage, BannerStatus } from "../lib/messages";
 import { randomReminder } from "../lib/reminders";
 import { getStatus, type ActiveStatus, type Status } from "../lib/session";
-import { get, getSettings, onChange, set } from "../lib/storage";
+import { get, getSettings, onChange, set, TEXT_SCALE } from "../lib/storage";
 import type { Strictness } from "../lib/types";
 
 const ALARM_BOUNDARY = "window-boundary";
@@ -154,6 +154,7 @@ async function bannerStatus(): Promise<BannerStatus> {
       t(lang, "banner.nudge2", { n: estimateMinutes(status.window.session, status.settings.level) }),
       t(lang, "banner.nudge3"),
     ],
+    scale: TEXT_SCALE[status.settings.textSize],
   };
 }
 
