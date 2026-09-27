@@ -1,3 +1,4 @@
+import { estimateMinutes } from "../lib/azkar";
 import { MINUTE } from "../lib/dates";
 import { t } from "../lib/i18n";
 import { checklistUrl } from "../lib/pages";
@@ -148,6 +149,11 @@ async function bannerStatus(): Promise<BannerStatus> {
     quote: `«${reminder.text}» (${reminder.ref})`,
     open: t(lang, "action.openChecklist"),
     later: t(lang, "action.later"),
+    nudges: [
+      t(lang, "banner.nudge1"),
+      t(lang, "banner.nudge2", { n: estimateMinutes(status.window.session, status.settings.level) }),
+      t(lang, "banner.nudge3"),
+    ],
   };
 }
 

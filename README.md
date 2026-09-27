@@ -23,6 +23,7 @@ Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) f
 - **Notifications:** one when a window opens, then every 30 minutes while the session is incomplete. They stop once the session is complete and start again at the next window.
 - **Site banner (opt-in):** a bar at the bottom-center of websites while a session is pending. It needs host access, which is requested only when you enable it and removed when you disable it.
   - The first three "Later" clicks make the banner run to the right edge, then the left, then the right. The fourth click dismisses it.
+  - Each dodge swaps the quote for a gentle nudge. The first reminds you that you installed the extension so you wouldn't forget, the second gives how many minutes your level takes, and the last is «فَاذْكُرُونِي أَذْكُرْكُمْ».
   - After dismissal, it comes back after 60, 30 or 10 minutes, depending on the strictness setting.
   - "Open checklist" works at any time.
 - **Streak:** a day counts only when both morning and evening are complete. Today being still in progress doesn't break the streak.

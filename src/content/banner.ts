@@ -26,6 +26,7 @@ const STYLE = `
   .text { min-width: 0; }
   .title { font-weight: 600; margin: 0 0 2px; }
   .quote { margin: 0; color: #9aa69f; font-size: 12.5px; }
+  .quote.nudge { color: #f4c56a; font-size: 13px; }
   .actions { display: flex; gap: 8px; flex: none; }
   button {
     font: inherit; cursor: pointer; border-radius: 8px; padding: 6px 12px;
@@ -97,6 +98,12 @@ function show(status: Extract<BannerStatus, { show: true }>): void {
       remove();
       void send({ type: "banner:dismiss" });
       return;
+    }
+    // Swap the quote for a gentle nudge first, so the width used below is final.
+    const nudge = status.nudges[dodges];
+    if (nudge) {
+      quote.textContent = nudge;
+      quote.classList.add("nudge");
     }
     const reach = Math.max(0, (window.innerWidth - banner.offsetWidth) / 2 - EDGE_GAP);
     const side = dodges % 2 === 0 ? 1 : -1; // right, left, right…
