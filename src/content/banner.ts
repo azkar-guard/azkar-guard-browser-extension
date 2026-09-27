@@ -21,12 +21,12 @@ const STYLE = `
     padding: 12px 16px; border-radius: 12px;
     background: #1b1f1c; color: #e8ebe8; border: 1px solid #2d332f;
     box-shadow: 0 8px 24px rgba(0,0,0,.25);
-    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font: calc(14px * var(--s, 1))/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   }
   .text { min-width: 0; }
   .title { font-weight: 600; margin: 0 0 2px; }
-  .quote { margin: 0; color: #9aa69f; font-size: 12.5px; }
-  .quote.nudge { color: #f4c56a; font-size: 13px; }
+  .quote { margin: 0; color: #9aa69f; font-size: 0.9em; }
+  .quote.nudge { color: #f4c56a; font-size: 0.93em; }
   .actions { display: flex; gap: 8px; flex: none; }
   button {
     font: inherit; cursor: pointer; border-radius: 8px; padding: 6px 12px;
@@ -66,6 +66,7 @@ function show(status: Extract<BannerStatus, { show: true }>): void {
   banner.setAttribute("role", "status");
   banner.lang = status.lang;
   banner.dir = status.lang === "ar" ? "rtl" : "ltr";
+  banner.style.setProperty("--s", String(status.scale));
 
   const title = document.createElement("p");
   title.className = "title";

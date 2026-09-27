@@ -100,10 +100,15 @@ body {
   background: var(--bg);
 }
 
+/* Every size below is in rem, so the text size setting scales the whole page. */
+html {
+  font-size: calc(100% * var(--text-scale, 1));
+}
+
 body {
   margin: 0;
   color: var(--text);
-  font: 15px/1.5 var(--ui);
+  font: 0.9375rem/1.5 var(--ui);
 }
 
 h1,

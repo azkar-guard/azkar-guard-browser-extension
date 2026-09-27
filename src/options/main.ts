@@ -3,7 +3,7 @@ import { formatTime } from "../lib/dates";
 import { t, type I18nKey } from "../lib/i18n";
 import { getStatus } from "../lib/session";
 import { getSettings, set, updateSettings } from "../lib/storage";
-import type { Lang, Level, Location, Settings, Strictness, Theme } from "../lib/types";
+import type { Lang, Level, Location, Settings, Strictness, TextSize, Theme } from "../lib/types";
 import { mountToolbar, watchPrefs } from "../ui/prefs";
 
 const SITE_ORIGINS = ["http://*/*", "https://*/*"];
@@ -116,7 +116,7 @@ async function save(event: SubmitEvent): Promise<void> {
     return;
   }
 
-  // Language and theme apply immediately on change, so keep whatever is stored.
+  // Language, theme and text size apply immediately on change, so keep whatever is stored.
   await set("settings", {
     ...(await getSettings()),
     location,
@@ -187,6 +187,7 @@ await watchPrefs((settings) => {
   renderLevelOptions();
   field<HTMLSelectElement>("language").value = settings.language;
   field<HTMLSelectElement>("theme").value = settings.theme;
+  field<HTMLSelectElement>("textSize").value = settings.textSize;
   if (!filled) {
     fill(settings);
     filled = true;
@@ -198,6 +199,7 @@ form.addEventListener("change", (e) => {
   if (target.name === "kind") toggleLocationFields();
   if (target.name === "language") void updateSettings({ language: target.value as Lang });
   if (target.name === "theme") void updateSettings({ theme: target.value as Theme });
+  if (target.name === "textSize") void updateSettings({ textSize: target.value as TextSize });
 });
 form.addEventListener("submit", (e) => void save(e));
 field("siteBanner").addEventListener("change", (e) => void onBannerToggle(e));

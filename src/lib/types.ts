@@ -3,6 +3,7 @@ export type Level = "small" | "medium" | "full";
 export type Strictness = "gentle" | "normal" | "strict";
 export type Lang = "en" | "ar";
 export type Theme = "system" | "light" | "dark";
+export type TextSize = "regular" | "medium" | "large";
 
 /** One entry of src/data/azkar.json. */
 export interface Dhikr {
@@ -38,6 +39,8 @@ export interface Settings {
   /** Interface language. The dhikr itself is always shown in Arabic. */
   language: Lang;
   theme: Theme;
+  /** Scales all text in the extension's pages and the site banner. */
+  textSize: TextSize;
 }
 
 /** Prayer times for one calendar date, as epoch milliseconds. */
