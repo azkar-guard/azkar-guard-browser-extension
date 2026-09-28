@@ -7,6 +7,13 @@ Phase 1 of Azkar Guard. A Chrome (Manifest V3) extension that keeps reminding yo
 
 Prayer times come from the [Aladhan API](https://aladhan.com/prayer-times-api) for your city or coordinates.
 
+## Install
+
+- **Chrome:** [Chrome Web Store](https://chromewebstore.google.com/detail/pphgcabpchgmnmpfchhgjcckdgmcjnic)
+- **Edge, Brave and other Chromium browsers:** install from the Chrome Web Store too (Edge: allow extensions from other stores).
+- **Manual:** download the zip from [Releases](https://github.com/azkar-guard/azkar-guard-browser-extension/releases) and load it unpacked (see *Local setup*).
+- **Firefox:** planned ([#2](https://github.com/azkar-guard/azkar-guard-browser-extension/issues/2)).
+
 ## How it works
 
 - **Checklist:** each dhikr has a tap-to-count counter that goes down from its required count to 0. Taps closer than 400 ms apart are ignored. A session is done only when every dhikr in it reaches 0.

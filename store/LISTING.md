@@ -1,5 +1,7 @@
 # Chrome Web Store listing
 
+**Live:** https://chromewebstore.google.com/detail/pphgcabpchgmnmpfchhgjcckdgmcjnic (item ID `pphgcabpchgmnmpfchhgjcckdgmcjnic`)
+
 Everything to paste into the [Chrome Web Store developer dashboard](https://chrome.google.com/webstore/devconsole) for v1.0.0. Keep it in sync with the extension when features change.
 
 ## Package
